@@ -182,9 +182,9 @@ Use this disclaimer where appropriate:
 ## Git Attribution
 
 - Do not use tool, assistant, or automation identities as Git commit authors.
-- Attribute repository commits to the user or the project maintainer unless the user explicitly requests a different author.
-- For this repository, use the GitHub user `aanatidae` for project-owned commits unless instructed otherwise.
-- If a generated commit accidentally uses an assistant identity, tool identity, or the wrong maintainer identity, rewrite it before pushing so GitHub contributors reflect `aanatidae`.
+- Codex must never appear as a Git author, committer, co-author, or GitHub contributor for this repository.
+- Attribute repository commits to the actual human contributor or maintainer responsible for the change unless the user explicitly requests a different author.
+- If a generated commit accidentally uses an assistant identity, tool identity, or any non-human identity, rewrite it before pushing so GitHub contributors reflect the correct human account.
 
 ## Repository and Publishing Notes
 
