@@ -189,12 +189,12 @@ Goals:
 - Unit tests for rules and persistence.
 - UI sanity checks for main flows.
 - Documentation updates.
-- Git commits attributed to the project maintainer, not assistant or tool identities.
+- Git commits attributed to the correct human contributor or maintainer, never Codex or other assistant/tool identities.
 - Push to `pomudev/mantapp` only after the user gives explicit approval.
 
 Exit criteria:
 
 - User approves implementation state.
 - Repository can be pushed to GitHub.
-- GitHub contributors reflect the human project maintainer.
+- GitHub contributors reflect the correct human contributor or maintainer, not Codex.
 - No unresolved high-risk issues remain.
