@@ -70,6 +70,7 @@ Build the required questionnaire and profile setup flow.
 
 Goals:
 
+- Use the current simulated local authentication screens as the entry point until Room-backed auth/session persistence is implemented.
 - Collect income stability, employment status, debt status, debt types, emergency savings, goals, risk preference, budgeting preference, and upcoming major expenses.
 - Prevent users from reaching financial recommendations before required onboarding is complete.
 - Store profile answers locally.

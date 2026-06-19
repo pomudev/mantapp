@@ -64,6 +64,7 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 ## 5. User and Authentication MVP
 
+- [x] Confirm frontend auth screens are simulated local-only until Room-backed auth persistence is implemented.
 - [ ] Decide local-only account model for MVP.
 - [ ] Define user registration data model.
 - [ ] Define login/session data model.
@@ -226,4 +227,5 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Review backend checklist after reusable frontend UI components; no backend implementation status changed.
 - [x] Update backend checklist after local JDK/Android SDK setup and Gradle verification.
 - [x] Update backend checklist after Hilt DI decision and shared architecture contracts.
+- [x] Review backend checklist after User and Authentication Screens setup; Room-backed auth persistence remains pending.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.

@@ -8,11 +8,21 @@ enum class ScreenStatus {
 }
 
 data class AuthUiState(
+    val displayName: String = "",
     val email: String = "",
     val password: String = "",
+    val confirmPassword: String = "",
+    val returningOnboardedUser: Boolean = false,
     val status: ScreenStatus = ScreenStatus.Idle,
     val errorMessage: String? = null,
+    val successMessage: String? = null,
+    val destination: AuthDestination? = null,
 )
+
+enum class AuthDestination {
+    Onboarding,
+    Dashboard,
+}
 
 data class OnboardingUiState(
     val currentStepIndex: Int = 0,

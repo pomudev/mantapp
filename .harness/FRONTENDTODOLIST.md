@@ -56,12 +56,13 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 ## 4. User and Authentication Screens
 
-- [ ] Build registration screen.
-- [ ] Build login screen.
-- [ ] Show local-only authentication messaging if MVP authentication is simulated.
-- [ ] Route new users to onboarding.
-- [ ] Route returning onboarded users to dashboard.
-- [ ] Handle invalid login, empty form, loading, and success states.
+- [x] Build registration screen.
+- [x] Build login screen.
+- [x] Show local-only authentication messaging if MVP authentication is simulated.
+- [x] Route new users to onboarding.
+- [x] Route returning onboarded users to dashboard through simulated local onboarding-complete state.
+- [x] Handle invalid login, empty form, loading, and success states.
+- [x] Run Gradle verification after user and authentication screen setup: `testDebugUnitTest` and `assembleDebug` pass locally.
 
 ## 5. Onboarding Flow
 
@@ -219,4 +220,5 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Update frontend checklist after adding reusable UI foundation components.
 - [x] Update frontend checklist after local JDK/Android SDK setup and Gradle verification.
 - [x] Update frontend checklist after Frontend Architecture setup with Hilt and navigation contracts.
+- [x] Update frontend checklist after User and Authentication Screens setup.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

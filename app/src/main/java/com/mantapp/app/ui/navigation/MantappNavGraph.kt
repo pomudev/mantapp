@@ -1,11 +1,20 @@
 package com.mantapp.app.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
+import com.mantapp.app.ui.screen.auth.LoginScreen
+import com.mantapp.app.ui.screen.auth.RegistrationScreen
 import com.mantapp.app.ui.screen.PlaceholderScreen
+import com.mantapp.app.ui.state.AuthDestination
+import com.mantapp.app.viewmodel.AuthViewModel
 
 @Composable
 fun MantappNavGraph(
@@ -20,10 +29,26 @@ fun MantappNavGraph(
         modifier = modifier,
     ) {
         composable(MantappRoute.Login.route) {
-            PlaceholderScreen(title = "Login", subtitle = "Local-only authentication")
+            val viewModel = hiltViewModel<AuthViewModel>()
+            val state by viewModel.loginState.collectAsState()
+
+            LoginScreen(
+                state = state,
+                onEvent = viewModel::onLoginEvent,
+                onRegisterClick = { navController.navigate(MantappRoute.Register.route) },
+                onAuthenticated = { destination -> navController.navigateAuthDestination(destination) },
+            )
         }
         composable(MantappRoute.Register.route) {
-            PlaceholderScreen(title = "Register", subtitle = "Create an offline Mantapp profile")
+            val viewModel = hiltViewModel<AuthViewModel>()
+            val state by viewModel.registrationState.collectAsState()
+
+            RegistrationScreen(
+                state = state,
+                onEvent = viewModel::onRegistrationEvent,
+                onLoginClick = { navController.popBackStack() },
+                onRegistered = { destination -> navController.navigateAuthDestination(destination) },
+            )
         }
         composable(MantappRoute.Onboarding.route) {
             PlaceholderScreen(title = "Onboarding", subtitle = "Financial profile questionnaire")
@@ -47,4 +72,21 @@ fun MantappNavGraph(
             PlaceholderScreen(title = "Settings", subtitle = "Profile, preferences, and disclaimer")
         }
     }
+}
+
+private fun NavHostController.navigateAuthDestination(destination: AuthDestination) {
+    val route = when (destination) {
+        AuthDestination.Onboarding -> MantappRoute.Onboarding.route
+        AuthDestination.Dashboard -> MantappRoute.Dashboard.route
+    }
+
+    navigate(
+        route = route,
+        navOptions = navOptions {
+            popUpTo(MantappRoute.Login.route) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        },
+    )
 }

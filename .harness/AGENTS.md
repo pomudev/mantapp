@@ -75,6 +75,7 @@ Out of scope for the first implementation pass:
 - Test stack: JUnit 4, AndroidX Test, Espresso, Compose UI testing, and MockK.
 - Authentication is local-only for the MVP. Do not introduce backend authentication providers, external auth SDKs, or network-backed session handling.
 - Persist user session state and financial profiles entirely offline using Room.
+- Current authentication screens are UI-only simulated local auth until Room-backed user/session persistence is implemented.
 
 ## Local Toolchain
 
