@@ -228,4 +228,5 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Update backend checklist after local JDK/Android SDK setup and Gradle verification.
 - [x] Update backend checklist after Hilt DI decision and shared architecture contracts.
 - [x] Review backend checklist after User and Authentication Screens setup; Room-backed auth persistence remains pending.
+- [x] Review backend checklist after current source-state update; Room/data/auth persistence remains pending.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.

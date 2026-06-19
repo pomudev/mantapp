@@ -221,4 +221,5 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Update frontend checklist after local JDK/Android SDK setup and Gradle verification.
 - [x] Update frontend checklist after Frontend Architecture setup with Hilt and navigation contracts.
 - [x] Update frontend checklist after User and Authentication Screens setup.
+- [x] Review frontend checklist after current source-state update; no new frontend feature status changed.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

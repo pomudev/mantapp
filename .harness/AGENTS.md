@@ -8,9 +8,11 @@ Mantapp is an AI-powered personal finance application that helps users understan
 
 ## Current Workspace State
 
-At the time this harness was created, the `D:\Mantapp` workspace did not contain application source files. The `.harness` files are therefore project-foundation documents, not a summary of an existing implementation.
+The workspace now contains a from-scratch Android app in the standard `:app` module. The current implementation includes the Gradle/Compose foundation, Hilt setup, navigation route scaffolding, UI state/event contracts, and simulated local login/registration screens.
 
-Future agents should inspect the repository again before making changes and update these files when the actual codebase diverges from the current assumptions.
+Room-backed persistence, backend auth/session state, onboarding, finance inputs, recommendations, dashboard, progress tracking, rewards, and settings feature work remain pending unless marked complete in the frontend/backend checklists.
+
+Future agents should inspect the repository before making changes and update these files when the actual codebase diverges from the current implementation state.
 
 The original combined `.harness/TODOLIST.md` has been split into:
 

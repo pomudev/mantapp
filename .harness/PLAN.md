@@ -2,7 +2,7 @@
 
 ## Roadmap Status
 
-This roadmap is a planning baseline for review. It was created before application source files existed in the workspace. Update it after the initial app structure is created or imported.
+This roadmap now reflects an Android app source baseline in the standard `:app` module. The app foundation, Hilt architecture setup, navigation scaffolding, and simulated local authentication screens are implemented; data persistence and the remaining product feature flows are still pending.
 
 ## Phase 0: Harness and Project Alignment
 
