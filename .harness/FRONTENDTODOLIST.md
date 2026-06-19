@@ -192,7 +192,7 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Confirm Git is available or configure Git path.
 - [x] Confirm remote repository: `https://github.com/pomudev/mantapp`.
 - [x] Check working tree status before committing.
-- [x] Confirm commits are authored as `aanatidae` or another user-approved human maintainer identity.
+- [x] Confirm commits are authored as the correct human contributor or another user-approved human maintainer identity, never Codex or another non-human identity.
 - [x] Coordinate commit scope with backend work.
 - [x] Push only after user gives the green light.
 
