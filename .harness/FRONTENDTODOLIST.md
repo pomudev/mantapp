@@ -13,12 +13,13 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 ## 1. Frontend Baseline
 
-- [ ] Re-scan the workspace for existing source files.
-- [ ] Confirm whether the app should be created from scratch or imported from another location.
-- [ ] Confirm Android Gradle Plugin, Kotlin, Compose, and chart library versions with backend needs.
-- [ ] Confirm package name and app display name.
-- [ ] Confirm minimum SDK and target SDK.
-- [ ] Confirm whether authentication is local-only for MVP.
+- [x] Re-scan the workspace for existing source files.
+- [x] Confirm whether the app should be created from scratch or imported from another location: create from scratch in this repo.
+- [x] Confirm Android Gradle Plugin, Kotlin, Compose, and chart library versions with backend needs: AGP `9.2.1`, Kotlin Android plugin `2.4.0`, Jetpack Compose BOM `2026.06.00`, Vico Compose `3.2.2`.
+- [x] Confirm package name and app display name: `com.mantapp.app`, `Mantapp`.
+- [x] Confirm minimum SDK and target SDK: min SDK 26, target SDK 34.
+- [x] Confirm whether authentication is local-only for MVP: local-only, no external auth or network-backed session provider.
+- [x] Record user answers for unresolved frontend baseline decisions before creating app source files.
 
 ## 2. Android and Compose Foundation
 
@@ -200,4 +201,6 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 - [x] Add rule requiring both frontend and backend checklists to be updated after each completed sequence of tasks.
 - [x] Review current frontend checklist status after harness publishing and attribution cleanup.
+- [x] Update frontend checklist after starting Frontend Baseline and re-scanning the workspace.
+- [x] Update frontend checklist after resolving Frontend Baseline decisions.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

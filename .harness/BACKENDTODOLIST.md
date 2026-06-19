@@ -13,12 +13,12 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 ## 1. Backend Baseline
 
-- [ ] Re-scan the workspace for existing source files.
-- [ ] Confirm whether the app should be created from scratch or imported from another location.
+- [x] Re-scan the workspace for existing source files.
+- [x] Confirm whether the app should be created from scratch or imported from another location: create from scratch in this repo.
 - [ ] Confirm Android Gradle Plugin, Kotlin, Room, and test dependency versions with frontend needs.
-- [ ] Confirm package name and app display name.
-- [ ] Confirm minimum SDK and target SDK.
-- [ ] Confirm whether authentication is local-only for MVP.
+- [x] Confirm package name and app display name: `com.mantapp.app`, `Mantapp`.
+- [x] Confirm minimum SDK and target SDK: min SDK 26, target SDK 34.
+- [x] Confirm whether authentication is local-only for MVP: local-only, persist session and financial profiles offline using Room.
 
 ## 2. Project and Dependency Foundation
 
@@ -211,4 +211,6 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 - [x] Add rule requiring both frontend and backend checklists to be updated after each completed sequence of tasks.
 - [x] Review current backend checklist status after harness publishing and attribution cleanup.
+- [x] Review backend checklist during Frontend Baseline start; no backend implementation status changed.
+- [x] Update backend checklist with baseline decisions that affect backend scope.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.

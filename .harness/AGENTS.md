@@ -56,6 +56,20 @@ Out of scope for the first implementation pass:
 - Production-grade KYC or financial institution integrations.
 - Licensed financial advice or investment execution.
 
+## Android Baseline Decisions
+
+- Create the Android application from scratch in this repository.
+- Package name: `com.mantapp.app`.
+- App display name: `Mantapp`.
+- Minimum SDK: 26.
+- Target SDK: 34.
+- Android Gradle Plugin: `9.2.1`.
+- Kotlin Android plugin: `2.4.0`.
+- Jetpack Compose BOM: `2026.06.00`.
+- Chart library: Vico Compose `3.2.2`.
+- Authentication is local-only for the MVP. Do not introduce backend authentication providers, external auth SDKs, or network-backed session handling.
+- Persist user session state and financial profiles entirely offline using Room.
+
 ## Architecture Direction
 
 Use MVVM with clear module boundaries:

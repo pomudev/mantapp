@@ -28,6 +28,11 @@ Goals:
 
 - Kotlin-based app structure.
 - Jetpack Compose UI foundation.
+- New Android app created from scratch in this repository.
+- Package name `com.mantapp.app` and app display name `Mantapp`.
+- Minimum SDK 26 and target SDK 34.
+- Android Gradle Plugin `9.2.1`, Kotlin Android plugin `2.4.0`, Jetpack Compose BOM `2026.06.00`, and Vico Compose `3.2.2`.
+- Local-only MVP authentication with offline Room-backed session and profile persistence.
 - MVVM architecture.
 - Navigation setup.
 - Room database dependencies and baseline setup.
