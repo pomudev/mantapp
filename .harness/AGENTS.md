@@ -173,6 +173,7 @@ Use this disclaimer where appropriate:
 
 - Read `.harness/AGENTS.md`, `.harness/PLAN.md`, `.harness/FRONTENDTODOLIST.md`, and `.harness/BACKENDTODOLIST.md` before implementation work.
 - Use `.harness/FRONTENDTODOLIST.md` for UI-facing work and `.harness/BACKENDTODOLIST.md` for data, persistence, and domain logic work.
+- After each completed sequence of tasks, update both `.harness/FRONTENDTODOLIST.md` and `.harness/BACKENDTODOLIST.md` in the same turn when task status, scope, publishing state, or implementation progress changes.
 - Keep changes scoped to the current task.
 - Prefer existing project patterns once source code exists.
 - Update `.harness` files when product decisions change.

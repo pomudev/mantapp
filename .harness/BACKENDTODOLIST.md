@@ -7,9 +7,9 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Create `.harness/AGENTS.md`.
 - [x] Create `.harness/PLAN.md`.
 - [x] Split the original `.harness/TODOLIST.md` into `.harness/FRONTENDTODOLIST.md` and `.harness/BACKENDTODOLIST.md`.
-- [ ] Wait for user review.
-- [ ] Apply requested harness edits.
-- [ ] Do not implement app features until user gives the green light.
+- [x] Wait for user review.
+- [x] Apply requested harness edits.
+- [x] Do not implement app features before harness approval.
 
 ## 1. Backend Baseline
 
@@ -199,10 +199,16 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 ## 16. GitHub Publishing Coordination
 
-- [ ] Wait for explicit user approval before publishing.
-- [ ] Confirm Git is available or configure Git path.
-- [ ] Confirm remote repository: `https://github.com/pomudev/mantapp`.
-- [ ] Check working tree status before committing.
-- [ ] Confirm commits are authored as `aanatidae` or another user-approved human maintainer identity.
-- [ ] Coordinate commit scope with frontend work.
-- [ ] Push only after user gives the green light.
+- [x] Wait for explicit user approval before publishing.
+- [x] Confirm Git is available or configure Git path.
+- [x] Confirm remote repository: `https://github.com/pomudev/mantapp`.
+- [x] Check working tree status before committing.
+- [x] Confirm commits are authored as `aanatidae` or another user-approved human maintainer identity.
+- [x] Coordinate commit scope with frontend work.
+- [x] Push only after user gives the green light.
+
+## 17. Checklist Maintenance
+
+- [x] Add rule requiring both frontend and backend checklists to be updated after each completed sequence of tasks.
+- [x] Review current backend checklist status after harness publishing and attribution cleanup.
+- [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.
