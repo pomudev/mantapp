@@ -15,7 +15,7 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 - [x] Re-scan the workspace for existing source files.
 - [x] Confirm whether the app should be created from scratch or imported from another location: create from scratch in this repo.
-- [x] Confirm Android Gradle Plugin, Kotlin, Compose, and chart library versions with backend needs: AGP `9.2.1`, AGP built-in Kotlin support with Kotlin Compose plugin `2.4.0`, Jetpack Compose BOM `2024.06.00`, Vico Compose `1.16.1`.
+- [x] Confirm Android Gradle Plugin, Kotlin, Compose, and chart library versions with backend needs: AGP `9.2.1`, AGP built-in Kotlin support with Hilt-compatible Kotlin Compose plugin `2.3.21`, Jetpack Compose BOM `2024.06.00`, Vico Compose `1.16.1`.
 - [x] Confirm package name and app display name: `com.mantapp.app`, `Mantapp`.
 - [x] Confirm minimum SDK and target SDK: min SDK 26, target SDK 34.
 - [x] Confirm whether authentication is local-only for MVP: local-only, no external auth or network-backed session provider.
@@ -45,11 +45,14 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 ## 3. Frontend Architecture
 
-- [ ] Define frontend package structure for UI screens, components, navigation, and ViewModels.
-- [ ] Add ViewModel state models.
-- [ ] Add navigation route definitions.
-- [ ] Establish dependency injection approach with backend if needed.
-- [ ] Define UI event contracts for form submission, proof actions, reward redemption, and settings updates.
+- [x] Define frontend package structure for UI screens, components, navigation, and ViewModels.
+- [x] Add ViewModel state models.
+- [x] Add navigation route definitions.
+- [x] Establish dependency injection approach with backend if needed: Hilt `2.59.2` with AndroidX Hilt Navigation Compose `1.2.0`.
+- [x] Define UI event contracts for form submission, proof actions, reward redemption, and settings updates.
+- [x] Add Hilt application entry point and baseline DI module.
+- [x] Verify Hilt-compatible Kotlin `2.3.21`, KSP `2.3.9`, and Compose plugin configuration.
+- [x] Run Gradle verification after frontend architecture setup: `testDebugUnitTest` and `assembleDebug` pass locally.
 
 ## 4. User and Authentication Screens
 
@@ -215,4 +218,5 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Update frontend checklist after scaffolding Android and Compose foundation.
 - [x] Update frontend checklist after adding reusable UI foundation components.
 - [x] Update frontend checklist after local JDK/Android SDK setup and Gradle verification.
+- [x] Update frontend checklist after Frontend Architecture setup with Hilt and navigation contracts.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

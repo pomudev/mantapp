@@ -65,12 +65,13 @@ Out of scope for the first implementation pass:
 - Target SDK: 34.
 - Android Gradle Plugin: `9.2.1`.
 - Kotlin support: AGP `9.2.1` built-in Kotlin support; do not apply the obsolete `org.jetbrains.kotlin.android` plugin.
-- Kotlin Compose plugin/version source: `2.4.0`.
+- Kotlin Compose plugin/version source: `2.3.21`, pinned to the Hilt-compatible Kotlin `2.3.x` metadata line.
 - Jetpack Compose BOM: `2024.06.00`.
 - Chart library: Vico Compose `1.16.1`.
 - AndroidX dependencies must remain compatible with compile SDK 34 unless the user explicitly approves a compile SDK increase.
-- KSP plugin: `2.3.9`.
+- KSP plugin: `2.3.9`, kept on the Kotlin `2.3.x`-compatible line.
 - Room: `2.6.1`.
+- Dependency injection: Hilt `2.59.2` with AndroidX Hilt Navigation Compose `1.2.0`.
 - Test stack: JUnit 4, AndroidX Test, Espresso, Compose UI testing, and MockK.
 - Authentication is local-only for the MVP. Do not introduce backend authentication providers, external auth SDKs, or network-backed session handling.
 - Persist user session state and financial profiles entirely offline using Room.
@@ -90,7 +91,8 @@ Use MVVM with clear module boundaries:
 
 - `data`: Room entities, DAOs, database setup, repositories, local data sources.
 - `domain`: recommendation rules, disposable income calculation, reward logic, validation, core models.
-- `ui`: Jetpack Compose screens, navigation, state rendering, user interactions.
+- `di`: Hilt modules and dependency graph bindings.
+- `ui`: Jetpack Compose screens, shared components, navigation, state rendering, user interactions.
 - `viewmodel`: screen state, use-case coordination, input validation, repository calls.
 
 Recommended modules or feature packages:
