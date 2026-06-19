@@ -64,11 +64,25 @@ Out of scope for the first implementation pass:
 - Minimum SDK: 26.
 - Target SDK: 34.
 - Android Gradle Plugin: `9.2.1`.
-- Kotlin Android plugin: `2.4.0`.
-- Jetpack Compose BOM: `2026.06.00`.
-- Chart library: Vico Compose `3.2.2`.
+- Kotlin support: AGP `9.2.1` built-in Kotlin support; do not apply the obsolete `org.jetbrains.kotlin.android` plugin.
+- Kotlin Compose plugin/version source: `2.4.0`.
+- Jetpack Compose BOM: `2024.06.00`.
+- Chart library: Vico Compose `1.16.1`.
+- AndroidX dependencies must remain compatible with compile SDK 34 unless the user explicitly approves a compile SDK increase.
+- KSP plugin: `2.3.9`.
+- Room: `2.6.1`.
+- Test stack: JUnit 4, AndroidX Test, Espresso, Compose UI testing, and MockK.
 - Authentication is local-only for the MVP. Do not introduce backend authentication providers, external auth SDKs, or network-backed session handling.
 - Persist user session state and financial profiles entirely offline using Room.
+
+## Local Toolchain
+
+- Local JDK 17 is installed at `D:\Mantapp\.tools\jdk17` and should be used as `JAVA_HOME` for Gradle verification.
+- Local Android SDK is installed at `D:\Mantapp\.android-sdk`.
+- `local.properties` points `sdk.dir` to the local Android SDK and remains untracked.
+- `.tools/` and `.android-sdk/` are local-only directories and must stay ignored by Git.
+- Verified SDK packages include Android SDK Platform 34, Android SDK Build-Tools 34.0.0, and Android SDK Platform-Tools.
+- Gradle verification command used for the foundation pass: `.\gradlew.bat testDebugUnitTest assembleDebug`.
 
 ## Architecture Direction
 

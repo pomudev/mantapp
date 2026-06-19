@@ -15,7 +15,7 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 - [x] Re-scan the workspace for existing source files.
 - [x] Confirm whether the app should be created from scratch or imported from another location: create from scratch in this repo.
-- [x] Confirm Android Gradle Plugin, Kotlin, Compose, and chart library versions with backend needs: AGP `9.2.1`, Kotlin Android plugin `2.4.0`, Jetpack Compose BOM `2026.06.00`, Vico Compose `3.2.2`.
+- [x] Confirm Android Gradle Plugin, Kotlin, Compose, and chart library versions with backend needs: AGP `9.2.1`, AGP built-in Kotlin support with Kotlin Compose plugin `2.4.0`, Jetpack Compose BOM `2024.06.00`, Vico Compose `1.16.1`.
 - [x] Confirm package name and app display name: `com.mantapp.app`, `Mantapp`.
 - [x] Confirm minimum SDK and target SDK: min SDK 26, target SDK 34.
 - [x] Confirm whether authentication is local-only for MVP: local-only, no external auth or network-backed session provider.
@@ -23,17 +23,25 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 ## 2. Android and Compose Foundation
 
-- [ ] Create or verify Gradle project structure with backend.
-- [ ] Configure Kotlin.
-- [ ] Configure Jetpack Compose.
-- [ ] Add Compose navigation.
-- [ ] Add chart dependency: Vico or MPAndroidChart.
-- [ ] Add frontend test dependencies.
-- [ ] Create app theme and shared typography.
-- [ ] Create reusable form components.
-- [ ] Create reusable money input component.
-- [ ] Create reusable empty, loading, and error states.
-- [ ] Create reusable confirmation, success, and warning UI patterns.
+- [x] Create or verify Gradle project structure with backend.
+- [x] Start Android and Compose Foundation by verifying repository contents and local tooling availability.
+- [x] Confirm current repository has no Android source files before scaffolding.
+- [x] Confirm app module name before creating Gradle project structure: `:app`.
+- [x] Confirm compile SDK before creating Android module: 34.
+- [x] Confirm Gradle wrapper strategy because `gradle` is not available on PATH: Gradle wrapper configured for Gradle `9.4.1`.
+- [x] Configure Kotlin.
+- [x] Configure Jetpack Compose.
+- [x] Add Compose navigation with compile SDK 34-compatible stable `androidx.navigation:navigation-compose:2.7.7`.
+- [x] Add chart dependency: Vico Compose `1.16.1`.
+- [x] Add frontend test dependencies.
+- [x] Confirm frontend test dependency versions and test framework choices: JUnit 4, AndroidX Test, Espresso, Compose UI testing, MockK.
+- [x] Create app theme and shared typography.
+- [x] Create reusable form components.
+- [x] Create reusable money input component.
+- [x] Create reusable empty, loading, and error states.
+- [x] Create reusable confirmation, success, and warning UI patterns.
+- [x] Install and configure local JDK and Android SDK for Android verification.
+- [x] Run Gradle verification after a JDK and Android SDK are available in the environment: `testDebugUnitTest` and `assembleDebug` pass locally.
 
 ## 3. Frontend Architecture
 
@@ -203,4 +211,8 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Review current frontend checklist status after harness publishing and attribution cleanup.
 - [x] Update frontend checklist after starting Frontend Baseline and re-scanning the workspace.
 - [x] Update frontend checklist after resolving Frontend Baseline decisions.
+- [x] Update frontend checklist after starting Android and Compose Foundation and identifying blocking decisions.
+- [x] Update frontend checklist after scaffolding Android and Compose foundation.
+- [x] Update frontend checklist after adding reusable UI foundation components.
+- [x] Update frontend checklist after local JDK/Android SDK setup and Gradle verification.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

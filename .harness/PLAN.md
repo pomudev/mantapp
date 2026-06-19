@@ -31,16 +31,17 @@ Goals:
 - New Android app created from scratch in this repository.
 - Package name `com.mantapp.app` and app display name `Mantapp`.
 - Minimum SDK 26 and target SDK 34.
-- Android Gradle Plugin `9.2.1`, Kotlin Android plugin `2.4.0`, Jetpack Compose BOM `2026.06.00`, and Vico Compose `3.2.2`.
+- Android Gradle Plugin `9.2.1`, AGP built-in Kotlin support with Kotlin Compose plugin `2.4.0`, Jetpack Compose BOM `2024.06.00`, and Vico Compose `1.16.1`.
+- KSP `2.3.9`, Room `2.6.1`, JUnit 4, AndroidX Test, Espresso, Compose UI testing, and MockK.
 - Local-only MVP authentication with offline Room-backed session and profile persistence.
 - MVVM architecture.
-- Navigation setup.
+- Navigation setup using compile SDK 34-compatible stable Navigation Compose `2.7.7`.
 - Room database dependencies and baseline setup.
 - Shared design tokens and reusable UI components.
 
 Exit criteria:
 
-- App builds locally.
+- App builds locally with the local JDK 17 and Android SDK setup.
 - Main navigation destinations exist.
 - Empty or placeholder screens are connected.
 - Room database can initialize.

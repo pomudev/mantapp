@@ -15,19 +15,26 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 - [x] Re-scan the workspace for existing source files.
 - [x] Confirm whether the app should be created from scratch or imported from another location: create from scratch in this repo.
-- [ ] Confirm Android Gradle Plugin, Kotlin, Room, and test dependency versions with frontend needs.
+- [x] Confirm Android Gradle Plugin, Kotlin, Room, and test dependency versions with frontend needs: AGP `9.2.1`, AGP built-in Kotlin support with Kotlin Compose plugin `2.4.0`, KSP `2.3.9`, Room `2.6.1`, JUnit 4, AndroidX Test, Espresso, Compose UI testing, MockK.
 - [x] Confirm package name and app display name: `com.mantapp.app`, `Mantapp`.
 - [x] Confirm minimum SDK and target SDK: min SDK 26, target SDK 34.
 - [x] Confirm whether authentication is local-only for MVP: local-only, persist session and financial profiles offline using Room.
 
 ## 2. Project and Dependency Foundation
 
-- [ ] Create or verify Gradle project structure with frontend.
-- [ ] Configure Kotlin.
-- [ ] Add Room dependencies.
-- [ ] Add backend test dependencies.
+- [x] Create or verify Gradle project structure with frontend.
+- [x] Review backend-impacting decisions while starting Android and Compose Foundation.
+- [x] Confirm Gradle wrapper strategy because `gradle` is not available on PATH: Gradle wrapper configured for Gradle `9.4.1`.
+- [x] Confirm compile SDK before creating Android module: 34.
+- [x] Configure Kotlin.
+- [x] Add Room dependencies.
+- [x] Confirm Room dependency version before adding Room: `2.6.1`.
+- [x] Add backend test dependencies.
+- [x] Confirm backend test dependency versions and test framework choices: JUnit 4, AndroidX Test, Espresso, Compose UI testing, MockK.
 - [ ] Establish dependency injection approach if needed.
 - [ ] Define package structure for data, domain, repositories, and services.
+- [x] Install and configure local JDK and Android SDK for Android verification.
+- [x] Run Gradle verification after a JDK and Android SDK are available in the environment: `testDebugUnitTest` and `assembleDebug` pass locally.
 
 ## 3. Architecture Setup
 
@@ -213,4 +220,8 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Review current backend checklist status after harness publishing and attribution cleanup.
 - [x] Review backend checklist during Frontend Baseline start; no backend implementation status changed.
 - [x] Update backend checklist with baseline decisions that affect backend scope.
+- [x] Update backend checklist after starting Android and Compose Foundation and identifying backend-impacting decisions.
+- [x] Update backend checklist after scaffolding Android and Compose foundation.
+- [x] Review backend checklist after reusable frontend UI components; no backend implementation status changed.
+- [x] Update backend checklist after local JDK/Android SDK setup and Gradle verification.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.
