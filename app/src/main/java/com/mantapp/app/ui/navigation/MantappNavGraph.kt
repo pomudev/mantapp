@@ -13,8 +13,10 @@ import androidx.navigation.navOptions
 import com.mantapp.app.ui.screen.auth.LoginScreen
 import com.mantapp.app.ui.screen.auth.RegistrationScreen
 import com.mantapp.app.ui.screen.PlaceholderScreen
+import com.mantapp.app.ui.screen.onboarding.OnboardingScreen
 import com.mantapp.app.ui.state.AuthDestination
 import com.mantapp.app.viewmodel.AuthViewModel
+import com.mantapp.app.viewmodel.OnboardingViewModel
 
 @Composable
 fun MantappNavGraph(
@@ -51,7 +53,21 @@ fun MantappNavGraph(
             )
         }
         composable(MantappRoute.Onboarding.route) {
-            PlaceholderScreen(title = "Onboarding", subtitle = "Financial profile questionnaire")
+            val viewModel = hiltViewModel<OnboardingViewModel>()
+            val state by viewModel.state.collectAsState()
+
+            OnboardingScreen(
+                state = state,
+                onEvent = viewModel::onEvent,
+                onComplete = {
+                    navController.navigate(MantappRoute.IncomeExpense.route) {
+                        popUpTo(MantappRoute.Onboarding.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                },
+            )
         }
         composable(MantappRoute.IncomeExpense.route) {
             PlaceholderScreen(title = "Income and Expenses", subtitle = "Monthly cash flow inputs")

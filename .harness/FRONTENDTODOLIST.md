@@ -68,21 +68,21 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 ## 5. Onboarding Flow
 
-- [ ] Create onboarding navigation flow.
-- [ ] Build monthly income question UI.
-- [ ] Build employment status question UI.
-- [ ] Build income stability question UI.
-- [ ] Build debt status question UI.
-- [ ] Build debt type question UI when debt exists.
-- [ ] Build emergency savings status question UI.
-- [ ] Build emergency savings coverage question UI.
-- [ ] Build main financial goals question UI.
-- [ ] Build short-term purchase goal question UI.
-- [ ] Build risk tolerance question UI.
-- [ ] Build budgeting approach preference question UI.
-- [ ] Build upcoming major expenses question UI.
-- [ ] Validate required answers before advancing.
-- [ ] Show review step before completion if practical.
+- [x] Create onboarding navigation flow.
+- [x] Build monthly income question UI.
+- [x] Build employment status question UI.
+- [x] Build income stability question UI.
+- [x] Build debt status question UI.
+- [x] Build debt type question UI when debt exists.
+- [x] Build emergency savings status question UI.
+- [x] Build emergency savings coverage question UI.
+- [x] Build main financial goals question UI.
+- [x] Build short-term purchase goal question UI.
+- [x] Build risk tolerance question UI.
+- [x] Build budgeting approach preference question UI.
+- [x] Build upcoming major expenses question UI.
+- [x] Validate required answers before advancing.
+- [x] Show review step before completion if practical.
 - [ ] Allow editing answers through Settings.
 
 ## 6. Income and Expense UI
@@ -225,4 +225,5 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Update frontend checklist after User and Authentication Screens setup.
 - [x] Review frontend checklist after current source-state update; no new frontend feature status changed.
 - [x] Update frontend checklist after UIDESIGN-based authentication screen redesign.
+- [x] Update frontend checklist after starting Onboarding Flow with questionnaire UI, validation, review, and navigation.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

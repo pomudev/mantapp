@@ -30,8 +30,11 @@ enum class AuthDestination {
 data class OnboardingUiState(
     val currentStepIndex: Int = 0,
     val completedStepCount: Int = 0,
+    val answers: Map<String, String> = emptyMap(),
+    val skippedQuestionKeys: Set<String> = emptySet(),
     val status: ScreenStatus = ScreenStatus.Idle,
     val errorMessage: String? = null,
+    val isComplete: Boolean = false,
 )
 
 data class MoneyEntryUiState(
