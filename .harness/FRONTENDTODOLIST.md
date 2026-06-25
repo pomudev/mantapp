@@ -87,22 +87,23 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 ## 6. Income and Expense UI
 
-- [ ] Build monthly salary form.
-- [ ] Build expense category entry UI.
-- [ ] Add rent or housing category.
-- [ ] Add utilities category.
-- [ ] Add groceries category.
-- [ ] Add transportation category.
-- [ ] Add insurance category.
-- [ ] Add credit card minimum payment category.
-- [ ] Add loan repayment category.
-- [ ] Add phone and internet category.
-- [ ] Add education expense category.
-- [ ] Add subscriptions category.
-- [ ] Add other necessary commitments category.
-- [ ] Show total essential expenses.
-- [ ] Show disposable income preview.
-- [ ] Handle low or negative disposable income messaging.
+- [x] Build monthly salary form.
+- [x] Build expense category entry UI.
+- [x] Add rent or housing category.
+- [x] Add utilities category.
+- [x] Add groceries category.
+- [x] Add transportation category.
+- [x] Add insurance category.
+- [x] Add credit card minimum payment category.
+- [x] Add loan repayment category.
+- [x] Add phone and internet category.
+- [x] Add education expense category.
+- [x] Add subscriptions category.
+- [x] Add other necessary commitments category.
+- [x] Show total essential expenses.
+- [x] Show disposable income preview.
+- [x] Handle low or negative disposable income messaging.
+- [ ] Scale low disposable income messaging by household size when household-member inputs exist.
 
 ## 7. Recommendation UI
 
@@ -226,4 +227,6 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Review frontend checklist after current source-state update; no new frontend feature status changed.
 - [x] Update frontend checklist after UIDESIGN-based authentication screen redesign.
 - [x] Update frontend checklist after starting Onboarding Flow with questionnaire UI, validation, review, and navigation.
+- [x] Update frontend checklist after starting Income and Expense UI with local form inputs, category fields, and cash-flow preview.
+- [x] Update frontend checklist after defining RM 1,500 as the single-person low disposable income threshold.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

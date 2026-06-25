@@ -91,6 +91,7 @@ Goals:
 - Essential expense categories: housing, utilities, groceries, transportation, insurance, debt minimums, loan repayments, phone or internet, education, subscriptions, and other commitments.
 - Disposable income calculation.
 - Low or negative disposable income handling.
+- Treat RM 1,500 or less as low monthly disposable income for a single-person profile, and scale that threshold by household size in future household-aware implementations.
 
 Exit criteria:
 

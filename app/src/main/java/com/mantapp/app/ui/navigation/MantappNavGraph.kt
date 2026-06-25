@@ -10,12 +10,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.mantapp.app.ui.screen.PlaceholderScreen
 import com.mantapp.app.ui.screen.auth.LoginScreen
 import com.mantapp.app.ui.screen.auth.RegistrationScreen
-import com.mantapp.app.ui.screen.PlaceholderScreen
+import com.mantapp.app.ui.screen.money.IncomeExpenseScreen
 import com.mantapp.app.ui.screen.onboarding.OnboardingScreen
 import com.mantapp.app.ui.state.AuthDestination
 import com.mantapp.app.viewmodel.AuthViewModel
+import com.mantapp.app.viewmodel.MoneyEntryViewModel
 import com.mantapp.app.viewmodel.OnboardingViewModel
 
 @Composable
@@ -70,7 +72,13 @@ fun MantappNavGraph(
             )
         }
         composable(MantappRoute.IncomeExpense.route) {
-            PlaceholderScreen(title = "Income and Expenses", subtitle = "Monthly cash flow inputs")
+            val viewModel = hiltViewModel<MoneyEntryViewModel>()
+            val state by viewModel.state.collectAsState()
+
+            IncomeExpenseScreen(
+                state = state,
+                onEvent = viewModel::onEvent,
+            )
         }
         composable(MantappRoute.Recommendation.route) {
             PlaceholderScreen(title = "Recommendation", subtitle = "Rule-based allocation plan")

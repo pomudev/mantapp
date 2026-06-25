@@ -39,9 +39,15 @@ data class OnboardingUiState(
 
 data class MoneyEntryUiState(
     val monthlyIncome: String = "",
+    val monthlyIncomeError: String? = null,
+    val expenseInputs: Map<String, String> = emptyMap(),
+    val expenseErrors: Map<String, String> = emptyMap(),
     val totalEssentialExpenses: String = "",
+    val disposableIncome: String = "",
+    val isLowOrNegativeDisposableIncome: Boolean = false,
     val status: ScreenStatus = ScreenStatus.Idle,
     val errorMessage: String? = null,
+    val successMessage: String? = null,
 )
 
 data class RecommendationUiState(

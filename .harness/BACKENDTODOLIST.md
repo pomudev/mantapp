@@ -108,6 +108,8 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [ ] Add other necessary commitments category.
 - [ ] Calculate total essential expenses.
 - [ ] Calculate disposable income.
+- [ ] Treat RM 1,500 or less as low monthly disposable income for a single-person profile.
+- [ ] Scale the low disposable income threshold by household size when household-member inputs exist.
 - [ ] Persist monthly income and expense data.
 - [ ] Add tests for disposable income calculation.
 
@@ -189,7 +191,7 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 - [ ] Add unit tests for disposable income calculation.
 - [ ] Add unit tests for allocation rules.
-- [ ] Add unit tests for low or negative disposable income.
+- [ ] Add unit tests for low, at-threshold, and negative disposable income.
 - [ ] Add unit tests for point awarding.
 - [ ] Add unit tests for redemption rules.
 - [ ] Add Room DAO tests.
@@ -231,4 +233,6 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Review backend checklist after current source-state update; Room/data/auth persistence remains pending.
 - [x] Review backend checklist after UIDESIGN-based authentication screen redesign; no backend implementation status changed.
 - [x] Review backend checklist after Onboarding Flow UI start; onboarding persistence remains pending.
+- [x] Review backend checklist after Income and Expense UI start; income and expense persistence remains pending.
+- [x] Update backend checklist after defining RM 1,500 as the single-person low disposable income threshold.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.

@@ -134,13 +134,15 @@ Prioritize deterministic logic before LLM output. The initial rule engine should
 - Reserve funds for short-term goals when the user has selected them.
 - Always leave a realistic flexible spending amount where possible.
 - Handle low or negative disposable income by recommending expense review and avoiding unrealistic savings/investment allocations.
+- Treat RM 1,500 or less as low monthly disposable income for a single-person profile.
+- In future household-aware implementations, scale the low disposable income threshold based on the number of household members.
 
 Example allocation patterns from the current product baseline:
 
 - No emergency fund: 50% emergency savings, 20% debt repayment, 10% long-term savings, 20% flexible spending.
 - High credit-card debt: 20% emergency savings, 50% debt repayment, 10% long-term savings, 20% flexible spending.
 - Stable finances: 25% emergency or goal savings, 25% retirement or investment preparation, 20% debt repayment, 30% flexible spending.
-- Low disposable income: 40% emergency savings, 20% debt repayment, 0% long-term investment, 40% flexible spending.
+- Low disposable income for a single-person profile, currently RM 1,500 or less: 40% emergency savings, 20% debt repayment, 0% long-term investment, 40% flexible spending.
 
 Prepare an LLM-facing interface later for explanations and insights, but keep financial percentages explainable and testable through local rules.
 
