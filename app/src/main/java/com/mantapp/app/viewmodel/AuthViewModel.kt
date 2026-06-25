@@ -24,8 +24,12 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     fun onLoginEvent(event: AuthEvent) {
         when (event) {
-            is AuthEvent.EmailChanged -> updateLogin { copy(email = event.value, errorMessage = null) }
-            is AuthEvent.PasswordChanged -> updateLogin { copy(password = event.value, errorMessage = null) }
+            is AuthEvent.EmailChanged -> updateLogin {
+                copy(email = event.value, emailError = null, errorMessage = null)
+            }
+            is AuthEvent.PasswordChanged -> updateLogin {
+                copy(password = event.value, passwordError = null, errorMessage = null)
+            }
             is AuthEvent.ReturningOnboardedUserChanged -> {
                 updateLogin { copy(returningOnboardedUser = event.value) }
             }
@@ -38,11 +42,13 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     fun onRegistrationEvent(event: AuthEvent) {
         when (event) {
             is AuthEvent.DisplayNameChanged -> updateRegistration {
-                copy(displayName = event.value, errorMessage = null)
+                copy(displayName = event.value, displayNameError = null, errorMessage = null)
             }
-            is AuthEvent.EmailChanged -> updateRegistration { copy(email = event.value, errorMessage = null) }
+            is AuthEvent.EmailChanged -> updateRegistration {
+                copy(email = event.value, emailError = null, errorMessage = null)
+            }
             is AuthEvent.PasswordChanged -> updateRegistration {
-                copy(password = event.value, errorMessage = null)
+                copy(password = event.value, passwordError = null, errorMessage = null)
             }
             is AuthEvent.ConfirmPasswordChanged -> updateRegistration {
                 copy(confirmPassword = event.value, errorMessage = null)
@@ -57,10 +63,16 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     private fun submitLogin() {
         val state = _loginState.value
-        val validationError = validateCredentials(state.email, state.password)
-        if (validationError != null) {
+        val validation = validateCredentials(state.email, state.password)
+        if (!validation.isValid) {
             updateLogin {
-                copy(status = ScreenStatus.Error, errorMessage = validationError, successMessage = null)
+                copy(
+                    status = ScreenStatus.Error,
+                    emailError = validation.emailError,
+                    passwordError = validation.passwordError,
+                    errorMessage = "Check the highlighted details and try again.",
+                    successMessage = null,
+                )
             }
             return
         }
@@ -84,43 +96,69 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     private fun submitRegistration() {
         val state = _registrationState.value
-        val validationError = validateRegistration(state)
-        if (validationError != null) {
+        val validation = validateRegistration(state)
+        if (!validation.isValid) {
             updateRegistration {
-                copy(status = ScreenStatus.Error, errorMessage = validationError, successMessage = null)
+                copy(
+                    status = ScreenStatus.Error,
+                    displayNameError = validation.displayNameError,
+                    emailError = validation.emailError,
+                    passwordError = validation.passwordError,
+                    errorMessage = "Check the highlighted details and try again.",
+                    successMessage = null,
+                )
             }
             return
         }
 
         updateRegistration { copy(status = ScreenStatus.Loading, errorMessage = null, successMessage = null) }
         viewModelScope.launch {
+            updateLogin {
+                copy(
+                    displayName = state.displayName.trim(),
+                    email = state.email.trim(),
+                    status = ScreenStatus.Success,
+                    errorMessage = null,
+                    successMessage = "Signed in locally.",
+                    destination = null,
+                )
+            }
             updateRegistration {
                 copy(
                     status = ScreenStatus.Success,
                     errorMessage = null,
-                    successMessage = "Profile created locally.",
+                    successMessage = "Account created. Taking you to setup.",
                     destination = AuthDestination.Onboarding,
                 )
             }
         }
     }
 
-    private fun validateRegistration(state: AuthUiState): String? {
-        if (state.displayName.isBlank()) return "Enter your name."
-        val credentialError = validateCredentials(state.email, state.password)
-        if (credentialError != null) return credentialError
-        if (state.password != state.confirmPassword) return "Passwords do not match."
-        return null
+    private fun validateRegistration(state: AuthUiState): AuthValidationResult {
+        val credentialResult = validateCredentials(state.email, state.password)
+        return credentialResult.copy(
+            displayNameError = if (state.displayName.isBlank()) {
+                "Enter your full name or username."
+            } else {
+                null
+            },
+        )
     }
 
-    private fun validateCredentials(email: String, password: String): String? {
-        if (email.isBlank()) return "Enter your email."
-        if (!email.contains("@")) return "Enter a valid email address."
-        if (password.isBlank()) return "Enter your password."
-        if (password.length < MIN_PASSWORD_LENGTH) {
-            return "Use at least $MIN_PASSWORD_LENGTH characters for the password."
+    private fun validateCredentials(email: String, password: String): AuthValidationResult {
+        val emailError = when {
+            email.isBlank() -> "Enter your email address."
+            !email.contains("@") -> "Use a valid email address."
+            else -> null
         }
-        return null
+        val passwordError = when {
+            password.isBlank() -> "Enter your password."
+            password.length < MIN_PASSWORD_LENGTH -> {
+                "Use at least $MIN_PASSWORD_LENGTH characters."
+            }
+            else -> null
+        }
+        return AuthValidationResult(emailError = emailError, passwordError = passwordError)
     }
 
     private fun updateLogin(reducer: AuthUiState.() -> AuthUiState) {
@@ -134,4 +172,13 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     private companion object {
         const val MIN_PASSWORD_LENGTH = 8
     }
+}
+
+private data class AuthValidationResult(
+    val displayNameError: String? = null,
+    val emailError: String? = null,
+    val passwordError: String? = null,
+) {
+    val isValid: Boolean
+        get() = displayNameError == null && emailError == null && passwordError == null
 }

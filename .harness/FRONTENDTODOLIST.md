@@ -63,6 +63,8 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Route returning onboarded users to dashboard through simulated local onboarding-complete state.
 - [x] Handle invalid login, empty form, loading, and success states.
 - [x] Run Gradle verification after user and authentication screen setup: `testDebugUnitTest` and `assembleDebug` pass locally.
+- [x] Redesign login and registration screens using `.harness/UIDESIGN.md` guidance.
+- [x] Add rounded auth text fields, password visibility toggles, inline validation errors, loading buttons, and text-link auth navigation.
 
 ## 5. Onboarding Flow
 
@@ -222,4 +224,5 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Update frontend checklist after Frontend Architecture setup with Hilt and navigation contracts.
 - [x] Update frontend checklist after User and Authentication Screens setup.
 - [x] Review frontend checklist after current source-state update; no new frontend feature status changed.
+- [x] Update frontend checklist after UIDESIGN-based authentication screen redesign.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.
