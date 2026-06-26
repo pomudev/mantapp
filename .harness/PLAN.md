@@ -101,21 +101,23 @@ Exit criteria:
 
 ## Phase 5: Recommendation Engine
 
-Implement recommendations in two layers, with deterministic rules first.
+Implement recommendations in two layers: rule-based guidance and AI final judgment.
 
 Goals:
 
-- Rule-based allocation engine.
+- Rule-based allocation guidance engine for priority hints, baseline ranges, safety constraints, and offline fallback.
+- AI recommendation layer that makes the final allocation judgment once explicitly approved and enabled.
 - Explainable allocation percentages and amounts.
 - Recommendation persistence.
-- LLM-ready interface for future personalized explanations.
+- LLM-ready interface for personalized allocation judgment and explanations.
 - Educational disclaimer shown with recommendation output.
 
 Exit criteria:
 
-- Recommendations are generated from profile, income, expenses, and debt state.
-- Rule outcomes are unit tested.
-- LLM integration is optional and safely disabled by default.
+- Recommendations are generated from profile, income, expenses, debt state, rule guidance, and, when enabled, AI judgment.
+- Rule-guidance outcomes are unit tested.
+- LLM integration is safely disabled by default until explicitly approved.
+- When AI is disabled, local rule guidance can produce provisional fallback recommendations.
 
 ## Phase 6: Dashboard and Visualization
 

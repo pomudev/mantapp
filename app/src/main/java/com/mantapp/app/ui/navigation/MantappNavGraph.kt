@@ -6,15 +6,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.navigation.navOptions
 import com.mantapp.app.ui.screen.PlaceholderScreen
 import com.mantapp.app.ui.screen.auth.LoginScreen
 import com.mantapp.app.ui.screen.auth.RegistrationScreen
 import com.mantapp.app.ui.screen.money.IncomeExpenseScreen
 import com.mantapp.app.ui.screen.onboarding.OnboardingScreen
+import com.mantapp.app.ui.screen.recommendation.RecommendationScreen
+import com.mantapp.app.ui.screen.recommendation.buildRecommendationUiState
 import com.mantapp.app.ui.state.AuthDestination
 import com.mantapp.app.viewmodel.AuthViewModel
 import com.mantapp.app.viewmodel.MoneyEntryViewModel
@@ -78,10 +82,54 @@ fun MantappNavGraph(
             IncomeExpenseScreen(
                 state = state,
                 onEvent = viewModel::onEvent,
+                onSaved = { savedState ->
+                    navController.navigate(
+                        MantappRoute.Recommendation.createRoute(
+                            monthlyIncome = savedState.monthlyIncome,
+                            totalExpenses = savedState.totalEssentialExpenses,
+                            disposableIncome = savedState.disposableIncome,
+                        ),
+                    )
+                },
             )
         }
-        composable(MantappRoute.Recommendation.route) {
-            PlaceholderScreen(title = "Recommendation", subtitle = "Rule-based allocation plan")
+        composable(
+            route = MantappRoute.Recommendation.route,
+            arguments = listOf(
+                navArgument(MantappRoute.Recommendation.MONTHLY_INCOME_ARG) {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument(MantappRoute.Recommendation.TOTAL_EXPENSES_ARG) {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument(MantappRoute.Recommendation.DISPOSABLE_INCOME_ARG) {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument(MantappRoute.Recommendation.PROFILE_COMPLETE_ARG) {
+                    type = NavType.BoolType
+                    defaultValue = false
+                },
+            ),
+        ) { backStackEntry ->
+            val arguments = backStackEntry.arguments
+            val state = buildRecommendationUiState(
+                monthlyIncome = arguments?.getString(MantappRoute.Recommendation.MONTHLY_INCOME_ARG),
+                totalEssentialExpenses = arguments?.getString(MantappRoute.Recommendation.TOTAL_EXPENSES_ARG),
+                disposableIncome = arguments?.getString(MantappRoute.Recommendation.DISPOSABLE_INCOME_ARG),
+                profileComplete = arguments?.getBoolean(MantappRoute.Recommendation.PROFILE_COMPLETE_ARG) ?: false,
+            )
+
+            RecommendationScreen(
+                state = state,
+                onDashboardClick = { navController.navigate(MantappRoute.Dashboard.route) },
+                onProgressClick = { navController.navigate(MantappRoute.Progress.route) },
+            )
         }
         composable(MantappRoute.Dashboard.route) {
             PlaceholderScreen(title = "Dashboard", subtitle = "Monthly financial overview")

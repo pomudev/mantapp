@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -26,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mantapp.app.ui.component.MantappErrorState
@@ -161,25 +159,6 @@ private fun StepInput(
 ) {
     val answer = state.answers[step.key].orEmpty()
     when (step.type) {
-        OnboardingStepType.Money -> {
-            OutlinedTextField(
-                value = answer,
-                onValueChange = { input ->
-                    onEvent(
-                        OnboardingEvent.AnswerChanged(
-                            step.key,
-                            input.filter { it.isDigit() || it == '.' },
-                        ),
-                    )
-                },
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text(text = "Monthly income in RM") },
-                prefix = { Text(text = "RM") },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                shape = RoundedCornerShape(14.dp),
-            )
-        }
         OnboardingStepType.SingleChoice -> {
             ChoiceGrid(
                 options = step.options,
@@ -268,7 +247,6 @@ private fun ReviewAnswers(state: OnboardingUiState) {
 }
 
 private enum class OnboardingStepType {
-    Money,
     SingleChoice,
     FreeText,
     Review,
@@ -285,13 +263,6 @@ private data class OnboardingStep(
 )
 
 private val onboardingSteps = listOf(
-    OnboardingStep(
-        key = "monthly_income",
-        title = "What is your monthly income?",
-        subtitle = "Use your usual take-home income so the plan stays realistic.",
-        type = OnboardingStepType.Money,
-        reviewLabel = "Monthly income",
-    ),
     OnboardingStep(
         key = "employment_status",
         title = "What best describes your work right now?",
@@ -393,9 +364,7 @@ private val onboardingSteps = listOf(
 private fun OnboardingScreenPreview() {
     MantappTheme {
         OnboardingScreen(
-            state = OnboardingUiState(
-                answers = mapOf("monthly_income" to "3200"),
-            ),
+            state = OnboardingUiState(),
             onEvent = {},
             onComplete = {},
         )

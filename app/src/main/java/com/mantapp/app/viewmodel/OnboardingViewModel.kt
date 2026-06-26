@@ -114,7 +114,6 @@ class OnboardingViewModel @Inject constructor() : ViewModel() {
         const val REVIEW_STEP_KEY = "review"
 
         val QUESTION_KEYS = listOf(
-            "monthly_income",
             "employment_status",
             "income_stability",
             DEBT_STATUS_KEY,

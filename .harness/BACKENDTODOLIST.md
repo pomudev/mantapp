@@ -74,7 +74,7 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 ## 6. Financial Profile Persistence
 
-- [ ] Store monthly income from onboarding.
+- [ ] Store monthly income from the income and expense flow.
 - [ ] Store employment status.
 - [ ] Store income stability.
 - [ ] Store debt status.
@@ -113,29 +113,33 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [ ] Persist monthly income and expense data.
 - [ ] Add tests for disposable income calculation.
 
-## 8. Rule-Based Recommendation Engine
+## 8. Rule-Based Recommendation Guidance
 
 - [ ] Create recommendation domain models.
 - [ ] Implement disposable income input validation.
-- [ ] Implement no-emergency-fund allocation rule.
-- [ ] Implement high-interest or credit-card debt rule.
-- [ ] Implement stable-finances rule.
-- [ ] Implement low-disposable-income rule.
-- [ ] Implement short-term-goal adjustment.
-- [ ] Ensure flexible spending remains realistic.
-- [ ] Generate allocation amounts from percentages.
-- [ ] Generate deterministic rationale text.
+- [ ] Implement no-emergency-fund guidance rule.
+- [ ] Implement high-interest or credit-card debt guidance rule.
+- [ ] Implement stable-finances guidance rule.
+- [ ] Implement low-disposable-income guidance rule.
+- [ ] Implement short-term-goal guidance adjustment.
+- [ ] Ensure guidance preserves a realistic flexible spending floor.
+- [ ] Generate structured priority signals, baseline ranges, and safety constraints for AI input.
+- [ ] Generate provisional offline fallback allocation amounts when AI is disabled.
+- [ ] Generate rationale for rule guidance and fallback output.
 - [ ] Persist generated recommendations.
-- [ ] Add tests for all rule branches.
+- [ ] Add tests for all rule-guidance branches.
 - [ ] Provide educational disclaimer content to frontend.
 
-## 9. LLM-Ready Recommendation Layer
+## 9. AI Recommendation Layer
 
-- [ ] Define `RecommendationExplanationProvider` interface.
-- [ ] Create local fallback explanation provider.
+- [ ] Define AI recommendation provider interface for final allocation judgment.
+- [ ] Include rule guidance, user profile context, income, expenses, disposable income, and safety constraints in AI input.
+- [ ] Require AI output to include final percentages, amounts, rationale, and any deviation from rule guidance.
+- [ ] Create local fallback provider that uses rule guidance when AI is disabled.
 - [ ] Create placeholder AI configuration model.
 - [ ] Keep actual network or LLM calls disabled until approved.
-- [ ] Ensure rule-based allocations remain authoritative.
+- [ ] Ensure AI makes the final recommendation judgment once integration is approved and enabled.
+- [ ] Ensure rule-based allocation logic assists and constrains AI judgment rather than permanently replacing it.
 - [ ] Document future LLM integration requirements.
 
 ## 10. Progress Tracking Logic
@@ -190,7 +194,7 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 ## 14. Backend Quality and Testing
 
 - [ ] Add unit tests for disposable income calculation.
-- [ ] Add unit tests for allocation rules.
+- [ ] Add unit tests for allocation guidance rules.
 - [ ] Add unit tests for low, at-threshold, and negative disposable income.
 - [ ] Add unit tests for point awarding.
 - [ ] Add unit tests for redemption rules.
@@ -205,7 +209,7 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [ ] Document data model and local persistence.
 - [ ] Document current MVP limitations.
 - [ ] Document simulated proof verification behavior from a data perspective.
-- [ ] Document that LLM integration is future-ready but disabled unless implemented.
+- [ ] Document that AI integration is future-ready but disabled unless implemented and explicitly approved.
 - [ ] Update `.harness` files when backend product direction changes.
 
 ## 16. GitHub Publishing Coordination
@@ -235,4 +239,8 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Review backend checklist after Onboarding Flow UI start; onboarding persistence remains pending.
 - [x] Review backend checklist after Income and Expense UI start; income and expense persistence remains pending.
 - [x] Update backend checklist after defining RM 1,500 as the single-person low disposable income threshold.
+- [x] Update backend checklist after removing duplicated monthly income capture from onboarding scope.
+- [x] Review backend checklist after Recommendation UI start; backend recommendation engine, persistence, and tests remain pending.
+- [x] Update backend checklist after changing recommendation architecture so rule-based allocation guides AI final judgment.
+- [x] Update backend checklist after adding code-level recommendation coordinator, rule-guidance engine, AI provider interface, and local fallback provider.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.

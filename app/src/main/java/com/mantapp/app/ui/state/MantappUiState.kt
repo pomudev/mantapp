@@ -51,9 +51,36 @@ data class MoneyEntryUiState(
 )
 
 data class RecommendationUiState(
+    val monthlyIncome: String = "",
+    val totalEssentialExpenses: String = "",
     val disposableIncome: String = "",
+    val decisionSource: RecommendationDecisionSourceUi = RecommendationDecisionSourceUi.LocalFallback,
+    val allocationItems: List<RecommendationAllocationUiModel> = emptyList(),
+    val guidanceItems: List<RecommendationGuidanceUiModel> = emptyList(),
+    val safetyNotes: List<String> = emptyList(),
+    val rationale: String = "",
+    val missingInputs: List<String> = emptyList(),
+    val aiExplanation: String? = null,
     val status: ScreenStatus = ScreenStatus.Idle,
     val errorMessage: String? = null,
+)
+
+enum class RecommendationDecisionSourceUi {
+    AiFinal,
+    LocalFallback,
+}
+
+data class RecommendationAllocationUiModel(
+    val label: String,
+    val percentage: Int,
+    val amount: String,
+    val note: String,
+)
+
+data class RecommendationGuidanceUiModel(
+    val title: String,
+    val message: String,
+    val priorityAdjustmentPercent: Int? = null,
 )
 
 data class DashboardUiState(

@@ -28,8 +28,9 @@ Use the current Mantapp product documentation and user-provided prompt as the ba
 - User financial profile with employment status, income stability, debt status, debt types, emergency savings, goals, risk preference, budgeting preference, and major upcoming expenses.
 - Monthly salary and essential expense input.
 - Disposable income calculation.
-- Rule-based financial allocation recommendations.
-- Optional LLM layer for explanations, contextual insights, and later personalization.
+- AI-driven financial allocation recommendations guided by structured rule signals.
+- Rule-based allocation guidance for baseline constraints, priority hints, safety checks, and offline fallback behavior.
+- LLM layer for final recommendation judgment, explanations, contextual insights, and personalization once AI integration is explicitly approved.
 - Dashboard showing salary, expenses, disposable income, recommended allocations, progress, and reward points.
 - Progress tracking for savings, debt repayment, check-ins, and monthly plan completion.
 - Simulated proof upload and verification flow.
@@ -44,8 +45,8 @@ Prioritize an offline/local MVP before external integrations:
 - Jetpack Compose UI.
 - MVVM architecture.
 - Room database using SQLite.
-- Local deterministic recommendation engine first.
-- LLM integration prepared behind an interface, but not required for initial functionality.
+- Local rule-guidance engine first so the app can produce explainable hints, safety checks, and offline fallback output.
+- LLM integration prepared behind an interface; once approved and enabled, AI makes the final allocation judgment using rule guidance plus user-provided context.
 - Simulated proof upload and manual verification states.
 - Local reward catalogue and point transactions.
 - Charts using Vico or MPAndroidChart.
@@ -114,7 +115,8 @@ Recommended modules or feature packages:
 The Room database should expand around these primary entities:
 
 - `User`: account details and basic user profile fields.
-- `FinancialProfile`: onboarding answers, monthly salary, employment status, income stability, debt status, debt type, emergency fund status, risk preference, budgeting approach, financial goals, and major expenses.
+- `FinancialProfile`: onboarding answers, employment status, income stability, debt status, debt type, emergency fund status, risk preference, budgeting approach, financial goals, and major expenses.
+- Monthly salary should be captured once in the income and expense flow, not duplicated in onboarding.
 - `Expense`: monthly essential expenses by category and amount.
 - `Recommendation`: generated allocation plan, percentages, amounts, rationale, source, and creation time.
 - `ProgressLog`: monthly or weekly plan progress, action type, completion status, proof reference, and verification status.
@@ -125,26 +127,32 @@ Use migrations once the schema exists. Avoid destructive schema changes unless t
 
 ## Recommendation Engine Rules
 
-Prioritize deterministic logic before LLM output. The initial rule engine should:
+The recommendation system should use rule-based allocation guidance and AI final judgment as separate layers.
+
+For the offline/local MVP, the rule-guidance engine may generate provisional allocation output because no approved AI provider is available yet. Once AI integration is approved and enabled, the AI should make the final recommendation judgment and allocation call. Rule-based guidance should assist the AI by providing structured constraints, priority signals, baseline ranges, and safety checks; it should not permanently replace AI judgment.
+
+The rule-guidance engine should:
 
 - Calculate disposable income as monthly salary minus total essential expenses.
-- Prioritize emergency savings when the user has no or insufficient emergency fund.
-- Prioritize debt repayment when high-interest or credit-card debt exists.
-- Allocate more toward long-term savings or investment preparation when income is stable and emergency savings are sufficient.
-- Reserve funds for short-term goals when the user has selected them.
-- Always leave a realistic flexible spending amount where possible.
-- Handle low or negative disposable income by recommending expense review and avoiding unrealistic savings/investment allocations.
+- Generate guidance such as increasing emergency-savings priority when the user has no or insufficient emergency fund.
+- Generate guidance such as increasing debt-repayment priority when high-interest or credit-card debt exists.
+- Generate guidance such as increasing long-term savings or investment-preparation priority when income is stable and emergency savings are sufficient.
+- Generate guidance such as reserving funds for short-term goals when the user has selected them.
+- Provide a realistic flexible-spending floor where possible.
+- Flag low or negative disposable income so the AI avoids unrealistic savings or investment recommendations and can focus on expense review.
 - Treat RM 1,500 or less as low monthly disposable income for a single-person profile.
 - In future household-aware implementations, scale the low disposable income threshold based on the number of household members.
+- Produce structured rule signals that the AI can consider alongside other user factors, rather than only fixed final percentages.
 
-Example allocation patterns from the current product baseline:
+Example guidance patterns from the current product baseline:
 
-- No emergency fund: 50% emergency savings, 20% debt repayment, 10% long-term savings, 20% flexible spending.
-- High credit-card debt: 20% emergency savings, 50% debt repayment, 10% long-term savings, 20% flexible spending.
-- Stable finances: 25% emergency or goal savings, 25% retirement or investment preparation, 20% debt repayment, 30% flexible spending.
-- Low disposable income for a single-person profile, currently RM 1,500 or less: 40% emergency savings, 20% debt repayment, 0% long-term investment, 40% flexible spending.
+- No emergency fund: strongly increase emergency savings priority while keeping debt repayment and flexible spending viable.
+- High credit-card debt: strongly increase debt repayment priority while maintaining some emergency savings and flexible spending.
+- Stable finances: balance emergency or goal savings, retirement or investment preparation, debt repayment, and flexible spending.
+- Low disposable income for a single-person profile, currently RM 1,500 or less: prioritize emergency savings, debt minimums, expense review, and flexible spending; avoid aggressive long-term investment allocations.
+- Example rule signal: "When debt is high, increase priority for savings and debt repayment by 20%." The AI should use this as guidance, not as an automatic final percentage.
 
-Prepare an LLM-facing interface later for explanations and insights, but keep financial percentages explainable and testable through local rules.
+Prepare an LLM-facing interface for final AI recommendations. The AI request should include rule guidance, user profile context, income, expenses, disposable income, and safety constraints. The AI response should remain explainable and include rationale for any deviation from rule guidance. Local rules should remain testable as guidance and fallback logic.
 
 ## Reward and Proof Verification Rules
 
@@ -212,7 +220,7 @@ Use this disclaimer where appropriate:
 - Keep changes scoped to the current task.
 - Prefer existing project patterns once source code exists.
 - Update `.harness` files when product decisions change.
-- Add tests for deterministic rules, disposable income calculation, reward points, and database behavior.
+- Add tests for rule-guidance signals, disposable income calculation, reward points, and database behavior.
 - Do not introduce network calls, banking APIs, real AI calls, or real merchant redemption without explicit approval.
 
 ## Git Attribution

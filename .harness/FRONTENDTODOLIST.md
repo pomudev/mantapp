@@ -69,7 +69,7 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 ## 5. Onboarding Flow
 
 - [x] Create onboarding navigation flow.
-- [x] Build monthly income question UI.
+- [x] Keep monthly income out of onboarding; monthly salary is captured in the Income and Expense UI.
 - [x] Build employment status question UI.
 - [x] Build income stability question UI.
 - [x] Build debt status question UI.
@@ -107,14 +107,14 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 ## 7. Recommendation UI
 
-- [ ] Build recommendation screen.
-- [ ] Show allocation percentages.
-- [ ] Show allocation amounts.
-- [ ] Show deterministic rationale text.
-- [ ] Show AI explanation when future backend integration provides it.
-- [ ] Show educational disclaimer with recommendation output.
-- [ ] Handle missing profile, missing income, and missing expense states.
-- [ ] Provide action to continue to dashboard or progress tracking.
+- [x] Build recommendation screen.
+- [x] Show allocation percentages.
+- [x] Show allocation amounts.
+- [x] Show local fallback rationale text until AI recommendation integration is enabled.
+- [x] Show AI final recommendation and explanation when future backend integration provides it.
+- [x] Show educational disclaimer with recommendation output.
+- [x] Handle missing profile, missing income, and missing expense states.
+- [x] Provide action to continue to dashboard or progress tracking.
 
 ## 8. Dashboard
 
@@ -229,4 +229,8 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Update frontend checklist after starting Onboarding Flow with questionnaire UI, validation, review, and navigation.
 - [x] Update frontend checklist after starting Income and Expense UI with local form inputs, category fields, and cash-flow preview.
 - [x] Update frontend checklist after defining RM 1,500 as the single-person low disposable income threshold.
+- [x] Update frontend checklist after removing the duplicated monthly income question from onboarding.
+- [x] Update frontend checklist after starting Recommendation UI with local cash-flow route data, allocation preview, missing-input handling, and disclaimer output.
+- [x] Update frontend checklist after changing recommendation architecture so local rule output is fallback/guidance and AI owns final judgment when enabled.
+- [x] Update frontend checklist after changing Recommendation UI copy and state to separate AI final judgment, local fallback allocation, and rule guidance.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

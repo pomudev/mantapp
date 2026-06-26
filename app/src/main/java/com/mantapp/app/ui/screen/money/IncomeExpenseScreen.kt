@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +28,7 @@ import com.mantapp.app.ui.component.MantappSuccessMessage
 import com.mantapp.app.ui.component.MantappWarningMessage
 import com.mantapp.app.ui.event.MoneyEntryEvent
 import com.mantapp.app.ui.state.MoneyEntryUiState
+import com.mantapp.app.ui.state.ScreenStatus
 import com.mantapp.app.ui.theme.MantappIndigo
 import com.mantapp.app.ui.theme.MantappMint
 import com.mantapp.app.ui.theme.MantappTheme
@@ -35,8 +37,15 @@ import com.mantapp.app.ui.theme.MantappTheme
 fun IncomeExpenseScreen(
     state: MoneyEntryUiState,
     onEvent: (MoneyEntryEvent) -> Unit,
+    onSaved: (MoneyEntryUiState) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    LaunchedEffect(state.status) {
+        if (state.status == ScreenStatus.Success) {
+            onSaved(state)
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -245,6 +254,7 @@ private fun IncomeExpenseScreenPreview() {
                 disposableIncome = "1500.00",
             ),
             onEvent = {},
+            onSaved = {},
         )
     }
 }
