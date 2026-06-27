@@ -85,15 +85,49 @@ data class RecommendationGuidanceUiModel(
 
 data class DashboardUiState(
     val monthlyIncome: String = "",
+    val totalEssentialExpenses: String = "",
     val disposableIncome: String = "",
+    val allocationItems: List<RecommendationAllocationUiModel> = emptyList(),
+    val missingInputs: List<String> = emptyList(),
+    val isLowOrNegativeDisposableIncome: Boolean = false,
+    val progressTitle: String = "No actions logged yet",
+    val progressMessage: String = "Start tracking once you choose a recommendation action.",
+    val nextRecommendedAction: String = "",
     val pointsBalance: Int = 0,
     val status: ScreenStatus = ScreenStatus.Idle,
 )
 
 data class ProgressUiState(
-    val pendingProofCount: Int = 0,
-    val approvedActionCount: Int = 0,
+    val selectedActionType: ProgressActionType = ProgressActionType.WeeklyCheckIn,
+    val amount: String = "",
+    val amountError: String? = null,
+    val note: String = "",
+    val noteError: String? = null,
+    val activeRecommendationLabel: String = "Current fallback allocation",
+    val logs: List<ProgressLogUiModel> = emptyList(),
+    val monthlyCompletionCount: Int = 0,
+    val monthlyTargetCount: Int = 4,
+    val streakCandidateWeeks: Int = 0,
     val status: ScreenStatus = ScreenStatus.Idle,
+    val errorMessage: String? = null,
+    val successMessage: String? = null,
+)
+
+enum class ProgressActionType {
+    WeeklyCheckIn,
+    SavingsAction,
+    DebtRepayment,
+    AllocationComplete,
+}
+
+data class ProgressLogUiModel(
+    val id: String,
+    val actionType: ProgressActionType,
+    val title: String,
+    val amount: String,
+    val note: String,
+    val linkedRecommendationLabel: String,
+    val completionStatus: String,
 )
 
 data class RewardsUiState(

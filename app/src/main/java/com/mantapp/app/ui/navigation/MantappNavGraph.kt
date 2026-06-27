@@ -15,14 +15,18 @@ import androidx.navigation.navOptions
 import com.mantapp.app.ui.screen.PlaceholderScreen
 import com.mantapp.app.ui.screen.auth.LoginScreen
 import com.mantapp.app.ui.screen.auth.RegistrationScreen
+import com.mantapp.app.ui.screen.dashboard.DashboardScreen
+import com.mantapp.app.ui.screen.dashboard.buildDashboardUiState
 import com.mantapp.app.ui.screen.money.IncomeExpenseScreen
 import com.mantapp.app.ui.screen.onboarding.OnboardingScreen
+import com.mantapp.app.ui.screen.progress.ProgressScreen
 import com.mantapp.app.ui.screen.recommendation.RecommendationScreen
 import com.mantapp.app.ui.screen.recommendation.buildRecommendationUiState
 import com.mantapp.app.ui.state.AuthDestination
 import com.mantapp.app.viewmodel.AuthViewModel
 import com.mantapp.app.viewmodel.MoneyEntryViewModel
 import com.mantapp.app.viewmodel.OnboardingViewModel
+import com.mantapp.app.viewmodel.ProgressViewModel
 
 @Composable
 fun MantappNavGraph(
@@ -127,15 +131,66 @@ fun MantappNavGraph(
 
             RecommendationScreen(
                 state = state,
-                onDashboardClick = { navController.navigate(MantappRoute.Dashboard.route) },
+                onDashboardClick = {
+                    navController.navigate(
+                        MantappRoute.Dashboard.createRoute(
+                            monthlyIncome = state.monthlyIncome,
+                            totalExpenses = state.totalEssentialExpenses,
+                            disposableIncome = state.disposableIncome,
+                            profileComplete = state.missingInputs.isEmpty(),
+                        ),
+                    )
+                },
                 onProgressClick = { navController.navigate(MantappRoute.Progress.route) },
             )
         }
-        composable(MantappRoute.Dashboard.route) {
-            PlaceholderScreen(title = "Dashboard", subtitle = "Monthly financial overview")
+        composable(
+            route = MantappRoute.Dashboard.route,
+            arguments = listOf(
+                navArgument(MantappRoute.Dashboard.MONTHLY_INCOME_ARG) {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument(MantappRoute.Dashboard.TOTAL_EXPENSES_ARG) {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument(MantappRoute.Dashboard.DISPOSABLE_INCOME_ARG) {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument(MantappRoute.Dashboard.PROFILE_COMPLETE_ARG) {
+                    type = NavType.BoolType
+                    defaultValue = false
+                },
+            ),
+        ) { backStackEntry ->
+            val arguments = backStackEntry.arguments
+            val state = buildDashboardUiState(
+                monthlyIncome = arguments?.getString(MantappRoute.Dashboard.MONTHLY_INCOME_ARG),
+                totalEssentialExpenses = arguments?.getString(MantappRoute.Dashboard.TOTAL_EXPENSES_ARG),
+                disposableIncome = arguments?.getString(MantappRoute.Dashboard.DISPOSABLE_INCOME_ARG),
+                profileComplete = arguments?.getBoolean(MantappRoute.Dashboard.PROFILE_COMPLETE_ARG) ?: false,
+            )
+
+            DashboardScreen(
+                state = state,
+                onEnterCashFlowClick = { navController.navigate(MantappRoute.IncomeExpense.route) },
+                onTrackProgressClick = { navController.navigate(MantappRoute.Progress.route) },
+                onRewardsClick = { navController.navigate(MantappRoute.Rewards.route) },
+            )
         }
         composable(MantappRoute.Progress.route) {
-            PlaceholderScreen(title = "Progress", subtitle = "Plan tracking and proof status")
+            val viewModel = hiltViewModel<ProgressViewModel>()
+            val state by viewModel.state.collectAsState()
+
+            ProgressScreen(
+                state = state,
+                onEvent = viewModel::onEvent,
+            )
         }
         composable(MantappRoute.Rewards.route) {
             PlaceholderScreen(title = "Rewards", subtitle = "Points and simulated vouchers")
@@ -149,7 +204,12 @@ fun MantappNavGraph(
 private fun NavHostController.navigateAuthDestination(destination: AuthDestination) {
     val route = when (destination) {
         AuthDestination.Onboarding -> MantappRoute.Onboarding.route
-        AuthDestination.Dashboard -> MantappRoute.Dashboard.route
+        AuthDestination.Dashboard -> MantappRoute.Dashboard.createRoute(
+            monthlyIncome = "",
+            totalExpenses = "",
+            disposableIncome = "",
+            profileComplete = false,
+        )
     }
 
     navigate(

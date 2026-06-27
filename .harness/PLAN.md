@@ -2,7 +2,7 @@
 
 ## Roadmap Status
 
-This roadmap now reflects an Android app source baseline in the standard `:app` module. The app foundation, Hilt architecture setup, navigation scaffolding, and simulated local authentication screens are implemented; data persistence and the remaining product feature flows are still pending.
+This roadmap now reflects an Android app source baseline in the standard `:app` module. The app foundation, Hilt architecture setup, navigation scaffolding, simulated local authentication screens, onboarding UI, income and expense UI, recommendation UI, dashboard UI, progress tracking UI, and a local recommendation coordinator/fallback path are implemented; Room persistence, persisted auth/session state, proof verification, rewards, settings, production charting, and tests are still pending.
 
 ## Phase 0: Harness and Project Alignment
 

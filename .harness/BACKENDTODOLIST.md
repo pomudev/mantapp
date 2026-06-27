@@ -40,10 +40,10 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 - [x] Define initial package boundaries shared with frontend: `di`, `ui/navigation`, `ui/state`, `ui/event`, and `viewmodel`.
 - [ ] Define `data` package boundaries.
-- [ ] Define `domain` package boundaries.
+- [x] Define initial `domain` package boundary for recommendation guidance and fallback logic.
 - [ ] Define repository interfaces.
 - [ ] Add repository implementations.
-- [ ] Add use-case or service classes for business logic.
+- [x] Add initial recommendation coordinator service for rule guidance and local fallback logic.
 - [x] Define initial UI contracts consumed by ViewModels.
 
 ## 4. Room Database
@@ -115,31 +115,31 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 ## 8. Rule-Based Recommendation Guidance
 
-- [ ] Create recommendation domain models.
+- [x] Create recommendation domain models.
 - [ ] Implement disposable income input validation.
 - [ ] Implement no-emergency-fund guidance rule.
 - [ ] Implement high-interest or credit-card debt guidance rule.
-- [ ] Implement stable-finances guidance rule.
-- [ ] Implement low-disposable-income guidance rule.
+- [x] Implement stable-finances guidance rule.
+- [x] Implement low-disposable-income guidance rule.
 - [ ] Implement short-term-goal guidance adjustment.
-- [ ] Ensure guidance preserves a realistic flexible spending floor.
+- [x] Ensure local fallback preserves a realistic flexible spending floor.
 - [ ] Generate structured priority signals, baseline ranges, and safety constraints for AI input.
-- [ ] Generate provisional offline fallback allocation amounts when AI is disabled.
-- [ ] Generate rationale for rule guidance and fallback output.
+- [x] Generate provisional offline fallback allocation amounts when AI is disabled.
+- [x] Generate rationale for rule guidance and fallback output.
 - [ ] Persist generated recommendations.
 - [ ] Add tests for all rule-guidance branches.
 - [ ] Provide educational disclaimer content to frontend.
 
 ## 9. AI Recommendation Layer
 
-- [ ] Define AI recommendation provider interface for final allocation judgment.
+- [x] Define AI recommendation provider interface for final allocation judgment.
 - [ ] Include rule guidance, user profile context, income, expenses, disposable income, and safety constraints in AI input.
 - [ ] Require AI output to include final percentages, amounts, rationale, and any deviation from rule guidance.
-- [ ] Create local fallback provider that uses rule guidance when AI is disabled.
+- [x] Create local fallback provider that uses rule guidance when AI is disabled.
 - [ ] Create placeholder AI configuration model.
-- [ ] Keep actual network or LLM calls disabled until approved.
+- [x] Keep actual network or LLM calls disabled until approved.
 - [ ] Ensure AI makes the final recommendation judgment once integration is approved and enabled.
-- [ ] Ensure rule-based allocation logic assists and constrains AI judgment rather than permanently replacing it.
+- [x] Ensure rule-based allocation logic assists and constrains AI judgment rather than permanently replacing it.
 - [ ] Document future LLM integration requirements.
 
 ## 10. Progress Tracking Logic
@@ -243,4 +243,7 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Review backend checklist after Recommendation UI start; backend recommendation engine, persistence, and tests remain pending.
 - [x] Update backend checklist after changing recommendation architecture so rule-based allocation guides AI final judgment.
 - [x] Update backend checklist after adding code-level recommendation coordinator, rule-guidance engine, AI provider interface, and local fallback provider.
+- [x] Review backend checklist after Dashboard UI start; persisted dashboard data, progress metrics, point balance, and recommendation records remain pending.
+- [x] Reconcile backend checklist against actual source after recommendation domain and dashboard changes.
+- [x] Review backend checklist after Progress Tracking UI start; progress persistence, proof verification, point awards, and reward logic remain pending.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.

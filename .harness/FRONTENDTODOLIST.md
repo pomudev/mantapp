@@ -118,29 +118,29 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 
 ## 8. Dashboard
 
-- [ ] Create dashboard screen.
-- [ ] Show monthly salary.
-- [ ] Show total essential expenses.
-- [ ] Show disposable income.
-- [ ] Show allocation recommendation summary.
-- [ ] Show allocation chart.
-- [ ] Show progress summary.
-- [ ] Show points balance.
-- [ ] Show next recommended action.
-- [ ] Handle missing onboarding state.
-- [ ] Handle missing income or expense data.
-- [ ] Handle low or negative disposable income messaging.
+- [x] Create dashboard screen.
+- [x] Show monthly salary.
+- [x] Show total essential expenses.
+- [x] Show disposable income.
+- [x] Show allocation recommendation summary.
+- [x] Show allocation visualization using Material progress bars; Vico or MPAndroidChart work remains pending in Charts and Visualization.
+- [x] Show progress summary.
+- [x] Show points balance.
+- [x] Show next recommended action.
+- [x] Handle missing onboarding state.
+- [x] Handle missing income or expense data.
+- [x] Handle low or negative disposable income messaging.
 
 ## 9. Progress Tracking UI
 
-- [ ] Create progress tracking screen.
-- [ ] Build weekly check-in UI.
-- [ ] Build savings action log UI.
-- [ ] Build debt repayment action log UI.
-- [ ] Build allocation completion log UI.
-- [ ] Show progress logs linked to active recommendations.
-- [ ] Show monthly completion status.
-- [ ] Show streak candidates when available.
+- [x] Create progress tracking screen.
+- [x] Build weekly check-in UI.
+- [x] Build savings action log UI.
+- [x] Build debt repayment action log UI.
+- [x] Build allocation completion log UI.
+- [x] Show progress logs linked to active recommendations.
+- [x] Show monthly completion status.
+- [x] Show streak candidates when available.
 
 ## 10. Simulated Proof Verification UI
 
@@ -233,4 +233,7 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Update frontend checklist after starting Recommendation UI with local cash-flow route data, allocation preview, missing-input handling, and disclaimer output.
 - [x] Update frontend checklist after changing recommendation architecture so local rule output is fallback/guidance and AI owns final judgment when enabled.
 - [x] Update frontend checklist after changing Recommendation UI copy and state to separate AI final judgment, local fallback allocation, and rule guidance.
+- [x] Update frontend checklist after starting Dashboard UI with route-backed cash-flow summary, allocation visualization, progress placeholder, points, next action, and missing-data states.
+- [x] Reconcile frontend checklist against actual source after dashboard and recommendation changes.
+- [x] Update frontend checklist after starting Progress Tracking UI with local weekly check-ins, savings/debt/allocation logs, monthly completion, and streak candidates.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

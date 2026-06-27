@@ -8,9 +8,9 @@ Mantapp is an AI-powered personal finance application that helps users understan
 
 ## Current Workspace State
 
-The workspace now contains a from-scratch Android app in the standard `:app` module. The current implementation includes the Gradle/Compose foundation, Hilt setup, navigation route scaffolding, UI state/event contracts, and simulated local login/registration screens.
+The workspace now contains a from-scratch Android app in the standard `:app` module. The current implementation includes the Gradle/Compose foundation, Hilt setup, navigation route scaffolding, UI state/event contracts, simulated local login/registration screens, onboarding UI, income and expense UI, recommendation UI, dashboard UI, progress tracking UI, and a code-level recommendation coordinator with rule-guidance and local fallback providers.
 
-Room-backed persistence, backend auth/session state, onboarding, finance inputs, recommendations, dashboard, progress tracking, rewards, and settings feature work remain pending unless marked complete in the frontend/backend checklists.
+Room-backed persistence, backend auth/session state, persisted onboarding/profile data, persisted finance inputs, persisted recommendations, progress tracking persistence and reward logic, proof verification, rewards, settings, production charting, and tests remain pending unless marked complete in the frontend/backend checklists.
 
 Future agents should inspect the repository before making changes and update these files when the actual codebase diverges from the current implementation state.
 

@@ -1,5 +1,7 @@
 package com.mantapp.app.ui.event
 
+import com.mantapp.app.ui.state.ProgressActionType
+
 sealed interface AuthEvent {
     data class DisplayNameChanged(val value: String) : AuthEvent
     data class EmailChanged(val value: String) : AuthEvent
@@ -22,6 +24,13 @@ sealed interface MoneyEntryEvent {
     data class MonthlyIncomeChanged(val value: String) : MoneyEntryEvent
     data class ExpenseChanged(val categoryKey: String, val value: String) : MoneyEntryEvent
     data object SubmitFinancialInputs : MoneyEntryEvent
+}
+
+sealed interface ProgressEvent {
+    data class ActionTypeChanged(val value: ProgressActionType) : ProgressEvent
+    data class AmountChanged(val value: String) : ProgressEvent
+    data class NoteChanged(val value: String) : ProgressEvent
+    data object SubmitProgressLog : ProgressEvent
 }
 
 sealed interface ProofEvent {
