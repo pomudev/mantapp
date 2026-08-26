@@ -7,7 +7,6 @@ sealed interface AuthEvent {
     data class EmailChanged(val value: String) : AuthEvent
     data class PasswordChanged(val value: String) : AuthEvent
     data class ConfirmPasswordChanged(val value: String) : AuthEvent
-    data class ReturningOnboardedUserChanged(val value: Boolean) : AuthEvent
     data object SubmitLogin : AuthEvent
     data object SubmitRegistration : AuthEvent
     data object NavigationHandled : AuthEvent

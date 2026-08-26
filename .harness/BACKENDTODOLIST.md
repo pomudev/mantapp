@@ -48,29 +48,29 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 ## 4. Room Database
 
-- [ ] Create `MantappDatabase`.
-- [ ] Create `UserEntity`.
-- [ ] Create `FinancialProfileEntity`.
-- [ ] Create `ExpenseEntity`.
-- [ ] Create `RecommendationEntity`.
-- [ ] Create `ProgressLogEntity`.
-- [ ] Create `RewardEntity`.
-- [ ] Create `PointTransactionEntity`.
-- [ ] Create DAOs for each entity.
-- [ ] Create repository implementations.
-- [ ] Seed simulated reward catalogue.
+- [x] Create `MantappDatabase`.
+- [x] Create `UserEntity`.
+- [x] Create `FinancialProfileEntity`.
+- [x] Create `ExpenseEntity`.
+- [x] Create `RecommendationEntity`.
+- [x] Create `ProgressLogEntity`.
+- [x] Create `RewardEntity`.
+- [x] Create `PointTransactionEntity`.
+- [x] Create DAOs for each entity.
+- [x] Create repository implementations.
+- [x] Seed simulated reward catalogue.
 - [ ] Add database migrations once schema evolves.
 - [ ] Add persistence tests for core entities.
 
 ## 5. User and Authentication MVP
 
 - [x] Confirm frontend auth screens are simulated local-only until Room-backed auth persistence is implemented.
-- [ ] Decide local-only account model for MVP.
-- [ ] Define user registration data model.
-- [ ] Define login/session data model.
-- [ ] Store active user state locally.
-- [ ] Persist onboarding completion state.
-- [ ] Expose active user and onboarding status to frontend.
+- [x] Decide local-only account model for MVP.
+- [x] Define user registration data model.
+- [x] Define login/session data model.
+- [x] Store active user state locally.
+- [x] Persist onboarding completion state.
+- [x] Expose active user and onboarding status to frontend.
 
 ## 6. Financial Profile Persistence
 
@@ -247,4 +247,5 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Reconcile backend checklist against actual source after recommendation domain and dashboard changes.
 - [x] Review backend checklist after Progress Tracking UI start; progress persistence, proof verification, point awards, and reward logic remain pending.
 - [x] Update backend checklist after adding backend package boundaries, repository interfaces, local in-memory repository implementations, and Hilt repository bindings.
+- [x] Update backend checklist after adding Room database, entities, DAOs, seeded rewards, Room-backed repositories, and persisted local auth/session state.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.

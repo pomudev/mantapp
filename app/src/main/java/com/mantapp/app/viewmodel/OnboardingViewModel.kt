@@ -1,6 +1,8 @@
 package com.mantapp.app.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mantapp.app.domain.repository.AuthRepository
 import com.mantapp.app.ui.event.OnboardingEvent
 import com.mantapp.app.ui.state.OnboardingUiState
 import com.mantapp.app.ui.state.ScreenStatus
@@ -10,9 +12,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor() : ViewModel() {
+class OnboardingViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
+) : ViewModel() {
     private val _state = MutableStateFlow(OnboardingUiState())
     val state: StateFlow<OnboardingUiState> = _state.asStateFlow()
 
@@ -82,11 +87,17 @@ class OnboardingViewModel @Inject constructor() : ViewModel() {
                     errorMessage = "Complete this answer before finishing setup.",
                 )
             } else {
-                current.copy(
-                    status = ScreenStatus.Success,
-                    errorMessage = null,
-                    isComplete = true,
-                )
+                viewModelScope.launch {
+                    authRepository.updateOnboardingComplete(isComplete = true)
+                    _state.update { latest ->
+                        latest.copy(
+                            status = ScreenStatus.Success,
+                            errorMessage = null,
+                            isComplete = true,
+                        )
+                    }
+                }
+                current.copy(status = ScreenStatus.Loading, errorMessage = null)
             }
         }
     }

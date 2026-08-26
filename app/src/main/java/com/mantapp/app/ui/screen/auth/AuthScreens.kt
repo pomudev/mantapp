@@ -16,7 +16,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -31,7 +30,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -102,11 +100,6 @@ fun LoginScreen(
             label = "Password",
             supportingText = state.passwordError,
             isError = state.passwordError != null,
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        ReturningUserShortcut(
-            checked = state.returningOnboardedUser,
-            onCheckedChange = { onEvent(AuthEvent.ReturningOnboardedUserChanged(it)) },
         )
         AuthFeedback(state = state)
         Spacer(modifier = Modifier.height(20.dp))
@@ -290,37 +283,6 @@ private fun PasswordField(
 }
 
 @Composable
-private fun ReturningUserShortcut(
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        color = Color.White,
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Checkbox(checked = checked, onCheckedChange = onCheckedChange)
-            Column(modifier = Modifier.padding(start = 8.dp)) {
-                Text(
-                    text = "I finished setup on this device",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MantappIndigo,
-                )
-                Text(
-                    text = "Skip onboarding after the mock login.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-            }
-        }
-    }
-}
-
-@Composable
 private fun AuthPrimaryButton(
     text: String,
     loadingText: String,
@@ -393,7 +355,7 @@ private fun LocalOnlyNote() {
                 fontWeight = FontWeight.SemiBold,
             )
             Text(
-                text = "Your mock account stays on this device for now.",
+                text = "Your local account stays on this device for now.",
                 modifier = Modifier.padding(top = 4.dp),
                 style = MaterialTheme.typography.bodyMedium,
             )

@@ -15,7 +15,6 @@ data class AuthUiState(
     val displayNameError: String? = null,
     val emailError: String? = null,
     val passwordError: String? = null,
-    val returningOnboardedUser: Boolean = false,
     val status: ScreenStatus = ScreenStatus.Idle,
     val errorMessage: String? = null,
     val successMessage: String? = null,

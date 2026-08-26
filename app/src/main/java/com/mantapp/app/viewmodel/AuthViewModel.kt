@@ -2,12 +2,14 @@ package com.mantapp.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mantapp.app.domain.repository.AuthRepository
 import com.mantapp.app.ui.event.AuthEvent
 import com.mantapp.app.ui.state.AuthDestination
 import com.mantapp.app.ui.state.AuthUiState
 import com.mantapp.app.ui.state.ScreenStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +17,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class AuthViewModel @Inject constructor() : ViewModel() {
+class AuthViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
+) : ViewModel() {
     private val _loginState = MutableStateFlow(AuthUiState())
     val loginState: StateFlow<AuthUiState> = _loginState.asStateFlow()
 
@@ -29,9 +33,6 @@ class AuthViewModel @Inject constructor() : ViewModel() {
             }
             is AuthEvent.PasswordChanged -> updateLogin {
                 copy(password = event.value, passwordError = null, errorMessage = null)
-            }
-            is AuthEvent.ReturningOnboardedUserChanged -> {
-                updateLogin { copy(returningOnboardedUser = event.value) }
             }
             AuthEvent.SubmitLogin -> submitLogin()
             AuthEvent.NavigationHandled -> updateLogin { copy(destination = null, status = ScreenStatus.Idle) }
@@ -79,17 +80,34 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
         updateLogin { copy(status = ScreenStatus.Loading, errorMessage = null, successMessage = null) }
         viewModelScope.launch {
-            updateLogin {
-                copy(
-                    status = ScreenStatus.Success,
-                    errorMessage = null,
-                    successMessage = "Signed in locally.",
-                    destination = if (returningOnboardedUser) {
-                        AuthDestination.Dashboard
-                    } else {
-                        AuthDestination.Onboarding
-                    },
-                )
+            val user = authRepository.login(
+                email = state.email,
+                password = state.password,
+            )
+            if (user == null) {
+                updateLogin {
+                    copy(
+                        status = ScreenStatus.Error,
+                        errorMessage = "No local account matched those details.",
+                        successMessage = null,
+                        destination = null,
+                    )
+                }
+            } else {
+                val session = authRepository.session.first()
+                updateLogin {
+                    copy(
+                        displayName = user.displayName,
+                        status = ScreenStatus.Success,
+                        errorMessage = null,
+                        successMessage = "Signed in locally.",
+                        destination = if (session.isOnboardingComplete) {
+                            AuthDestination.Dashboard
+                        } else {
+                            AuthDestination.Onboarding
+                        },
+                    )
+                }
             }
         }
     }
@@ -113,24 +131,44 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
         updateRegistration { copy(status = ScreenStatus.Loading, errorMessage = null, successMessage = null) }
         viewModelScope.launch {
-            updateLogin {
-                copy(
-                    displayName = state.displayName.trim(),
-                    email = state.email.trim(),
-                    status = ScreenStatus.Success,
-                    errorMessage = null,
-                    successMessage = "Signed in locally.",
-                    destination = null,
+            runCatching {
+                authRepository.register(
+                    displayName = state.displayName,
+                    email = state.email,
+                    password = state.password,
                 )
-            }
-            updateRegistration {
-                copy(
-                    status = ScreenStatus.Success,
-                    errorMessage = null,
-                    successMessage = "Account created. Taking you to setup.",
-                    destination = AuthDestination.Onboarding,
-                )
-            }
+            }.fold(
+                onSuccess = { user ->
+                    updateLogin {
+                        copy(
+                            displayName = user.displayName,
+                            email = user.email,
+                            status = ScreenStatus.Success,
+                            errorMessage = null,
+                            successMessage = "Signed in locally.",
+                            destination = null,
+                        )
+                    }
+                    updateRegistration {
+                        copy(
+                            status = ScreenStatus.Success,
+                            errorMessage = null,
+                            successMessage = "Account created. Taking you to setup.",
+                            destination = AuthDestination.Onboarding,
+                        )
+                    }
+                },
+                onFailure = { throwable ->
+                    updateRegistration {
+                        copy(
+                            status = ScreenStatus.Error,
+                            errorMessage = throwable.message ?: "Could not create this local account.",
+                            successMessage = null,
+                            destination = null,
+                        )
+                    }
+                },
+            )
         }
     }
 
