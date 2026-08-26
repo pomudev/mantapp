@@ -236,4 +236,5 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Update frontend checklist after starting Dashboard UI with route-backed cash-flow summary, allocation visualization, progress placeholder, points, next action, and missing-data states.
 - [x] Reconcile frontend checklist against actual source after dashboard and recommendation changes.
 - [x] Update frontend checklist after starting Progress Tracking UI with local weekly check-ins, savings/debt/allocation logs, monthly completion, and streak candidates.
+- [x] Review frontend checklist after backend project foundation and architecture setup; no frontend feature status changed.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

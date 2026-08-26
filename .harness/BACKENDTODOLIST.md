@@ -32,17 +32,17 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Add backend test dependencies.
 - [x] Confirm backend test dependency versions and test framework choices: JUnit 4, AndroidX Test, Espresso, Compose UI testing, MockK.
 - [x] Establish dependency injection approach if needed: Hilt `2.59.2` with AndroidX Hilt Navigation Compose `1.2.0`.
-- [ ] Define package structure for data, domain, repositories, and services.
+- [x] Define package structure for data, domain, repositories, and services.
 - [x] Install and configure local JDK and Android SDK for Android verification.
 - [x] Run Gradle verification after a JDK and Android SDK are available in the environment: `testDebugUnitTest` and `assembleDebug` pass locally.
 
 ## 3. Architecture Setup
 
 - [x] Define initial package boundaries shared with frontend: `di`, `ui/navigation`, `ui/state`, `ui/event`, and `viewmodel`.
-- [ ] Define `data` package boundaries.
+- [x] Define `data` package boundaries.
 - [x] Define initial `domain` package boundary for recommendation guidance and fallback logic.
-- [ ] Define repository interfaces.
-- [ ] Add repository implementations.
+- [x] Define repository interfaces.
+- [x] Add repository implementations.
 - [x] Add initial recommendation coordinator service for rule guidance and local fallback logic.
 - [x] Define initial UI contracts consumed by ViewModels.
 
@@ -246,4 +246,5 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Review backend checklist after Dashboard UI start; persisted dashboard data, progress metrics, point balance, and recommendation records remain pending.
 - [x] Reconcile backend checklist against actual source after recommendation domain and dashboard changes.
 - [x] Review backend checklist after Progress Tracking UI start; progress persistence, proof verification, point awards, and reward logic remain pending.
+- [x] Update backend checklist after adding backend package boundaries, repository interfaces, local in-memory repository implementations, and Hilt repository bindings.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.
