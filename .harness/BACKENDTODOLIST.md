@@ -60,7 +60,7 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Create repository implementations.
 - [x] Seed simulated reward catalogue.
 - [ ] Add database migrations once schema evolves.
-- [ ] Add persistence tests for core entities.
+- [x] Add persistence tests for core entities.
 
 ## 5. User and Authentication MVP
 
@@ -198,8 +198,8 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [ ] Add unit tests for low, at-threshold, and negative disposable income.
 - [ ] Add unit tests for point awarding.
 - [ ] Add unit tests for redemption rules.
-- [ ] Add Room DAO tests.
-- [ ] Run build verification.
+- [x] Add Room DAO tests.
+- [x] Run build verification.
 - [ ] Run backend-relevant test suite.
 - [ ] Review business logic for financial safety.
 
@@ -248,4 +248,6 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Review backend checklist after Progress Tracking UI start; progress persistence, proof verification, point awards, and reward logic remain pending.
 - [x] Update backend checklist after adding backend package boundaries, repository interfaces, local in-memory repository implementations, and Hilt repository bindings.
 - [x] Update backend checklist after adding Room database, entities, DAOs, seeded rewards, Room-backed repositories, and persisted local auth/session state.
+- [x] Update backend checklist after adding Room-backed persistence instrumentation tests for users, sessions, profiles, monthly finance, recommendations, progress logs, rewards, and point transactions.
+- [x] Update backend checklist after verifying unit build, debug APK assembly, and debug androidTest APK assembly; connected androidTest execution is blocked until an emulator or device is attached.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.
