@@ -1,20 +1,31 @@
 package com.mantapp.app.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mantapp.app.domain.model.ExpenseEntry
+import com.mantapp.app.domain.model.MonthlyFinance
+import com.mantapp.app.domain.repository.AuthRepository
+import com.mantapp.app.domain.repository.MoneyRepository
 import com.mantapp.app.ui.event.MoneyEntryEvent
 import com.mantapp.app.ui.state.MoneyEntryUiState
 import com.mantapp.app.ui.state.ScreenStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.Instant
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 @HiltViewModel
-class MoneyEntryViewModel @Inject constructor() : ViewModel() {
+class MoneyEntryViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
+    private val moneyRepository: MoneyRepository,
+) : ViewModel() {
     private val _state = MutableStateFlow(MoneyEntryUiState())
     val state: StateFlow<MoneyEntryUiState> = _state.asStateFlow()
 
@@ -82,18 +93,64 @@ class MoneyEntryViewModel @Inject constructor() : ViewModel() {
                 expenseErrors.isEmpty() &&
                 missingExpenseMessage == null
 
-            recalculate(
+            val updatedState = recalculate(
                 current.copy(
                     monthlyIncomeError = monthlyIncomeError,
                     expenseErrors = expenseErrors,
-                    status = if (isValid) ScreenStatus.Success else ScreenStatus.Error,
+                    status = if (isValid) ScreenStatus.Loading else ScreenStatus.Error,
                     errorMessage = monthlyIncomeError ?: missingExpenseMessage,
-                    successMessage = if (isValid) {
-                        "Your monthly cash flow is ready for recommendations."
-                    } else {
-                        null
-                    },
+                    successMessage = null,
                 ),
+            )
+
+            if (isValid && monthlyIncome != null) {
+                saveFinancialInputs(updatedState, monthlyIncome)
+            }
+
+            updatedState
+        }
+    }
+
+    private fun saveFinancialInputs(state: MoneyEntryUiState, monthlyIncome: BigDecimal) {
+        viewModelScope.launch {
+            runCatching {
+                val activeUserId = authRepository.session.first().activeUserId
+                    ?: error("Sign in before saving cash flow.")
+                val expenses = state.expenseInputs.mapNotNull { (key, value) ->
+                    val amount = value.toMoneyOrNull()
+                    if (amount == null) {
+                        null
+                    } else {
+                        ExpenseEntry(categoryKey = key, amount = amount)
+                    }
+                }
+                moneyRepository.saveMonthlyFinance(
+                    MonthlyFinance(
+                        userId = activeUserId,
+                        monthlyIncome = monthlyIncome,
+                        expenses = expenses,
+                        updatedAt = Instant.now(),
+                    ),
+                )
+            }.fold(
+                onSuccess = {
+                    _state.update { current ->
+                        current.copy(
+                            status = ScreenStatus.Success,
+                            errorMessage = null,
+                            successMessage = "Your monthly cash flow is ready for recommendations.",
+                        )
+                    }
+                },
+                onFailure = { throwable ->
+                    _state.update { current ->
+                        current.copy(
+                            status = ScreenStatus.Error,
+                            errorMessage = throwable.message ?: "Could not save your cash flow yet.",
+                            successMessage = null,
+                        )
+                    }
+                },
             )
         }
     }

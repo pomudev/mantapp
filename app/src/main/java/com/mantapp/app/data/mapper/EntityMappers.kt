@@ -9,6 +9,7 @@ import com.mantapp.app.data.local.entity.RecommendationEntity
 import com.mantapp.app.data.local.entity.RewardEntity
 import com.mantapp.app.data.local.entity.UserEntity
 import com.mantapp.app.domain.model.ExpenseEntry
+import com.mantapp.app.domain.model.FinancialProfileFields
 import com.mantapp.app.domain.model.FinancialProfile
 import com.mantapp.app.domain.model.MonthlyFinance
 import com.mantapp.app.domain.model.PointTransaction
@@ -33,17 +34,42 @@ fun UserEntity.toDomain(): UserAccount {
 }
 
 fun FinancialProfileEntity.toDomain(): FinancialProfile {
+    val answerMap = answersJson.toAnswerMap()
     return FinancialProfile(
         userId = userId,
-        answers = answersJson.toAnswerMap(),
+        employmentStatus = employmentStatus ?: answerMap[FinancialProfileFields.EMPLOYMENT_STATUS],
+        incomeStability = incomeStability ?: answerMap[FinancialProfileFields.INCOME_STABILITY],
+        debtStatus = debtStatus ?: answerMap[FinancialProfileFields.DEBT_STATUS],
+        debtType = debtType ?: answerMap[FinancialProfileFields.DEBT_TYPES],
+        emergencySavingsStatus = emergencySavingsStatus ?: answerMap[FinancialProfileFields.EMERGENCY_SAVINGS_STATUS],
+        emergencySavingsCoverageMonths = emergencySavingsCoverageMonths
+            ?: answerMap[FinancialProfileFields.EMERGENCY_SAVINGS_COVERAGE],
+        mainFinancialGoals = mainFinancialGoals ?: answerMap[FinancialProfileFields.MAIN_FINANCIAL_GOALS],
+        shortTermPurchaseGoal = shortTermPurchaseGoal ?: answerMap[FinancialProfileFields.SHORT_TERM_PURCHASE_GOAL],
+        riskTolerance = riskTolerance ?: answerMap[FinancialProfileFields.RISK_TOLERANCE],
+        budgetingPreference = budgetingPreference ?: answerMap[FinancialProfileFields.BUDGETING_PREFERENCE],
+        upcomingMajorExpenses = upcomingMajorExpenses ?: answerMap[FinancialProfileFields.UPCOMING_MAJOR_EXPENSES],
+        answers = answerMap,
         completedAt = completedAtEpochMillis?.let(Instant::ofEpochMilli),
     )
 }
 
 fun FinancialProfile.toEntity(): FinancialProfileEntity {
+    val normalizedAnswers = toAnswerMap()
     return FinancialProfileEntity(
         userId = userId,
-        answersJson = answers.toJsonString(),
+        answersJson = normalizedAnswers.toJsonString(),
+        employmentStatus = employmentStatus.normalized(),
+        incomeStability = incomeStability.normalized(),
+        debtStatus = debtStatus.normalized(),
+        debtType = debtType.normalized(),
+        emergencySavingsStatus = emergencySavingsStatus.normalized(),
+        emergencySavingsCoverageMonths = emergencySavingsCoverageMonths.normalized(),
+        mainFinancialGoals = mainFinancialGoals.normalized(),
+        shortTermPurchaseGoal = shortTermPurchaseGoal.normalized(),
+        riskTolerance = riskTolerance.normalized(),
+        budgetingPreference = budgetingPreference.normalized(),
+        upcomingMajorExpenses = upcomingMajorExpenses.normalized(),
         completedAtEpochMillis = completedAt?.toEpochMilli(),
     )
 }
@@ -194,4 +220,32 @@ private fun Map<String, String>.toJsonString(): String {
     val json = JSONObject()
     entries.sortedBy { it.key }.forEach { (key, value) -> json.put(key, value) }
     return json.toString()
+}
+
+private fun FinancialProfile.toAnswerMap(): Map<String, String> {
+    return buildMap {
+        putAll(answers)
+        putIfPresent(FinancialProfileFields.EMPLOYMENT_STATUS, employmentStatus)
+        putIfPresent(FinancialProfileFields.INCOME_STABILITY, incomeStability)
+        putIfPresent(FinancialProfileFields.DEBT_STATUS, debtStatus)
+        putIfPresent(FinancialProfileFields.DEBT_TYPES, debtType)
+        putIfPresent(FinancialProfileFields.EMERGENCY_SAVINGS_STATUS, emergencySavingsStatus)
+        putIfPresent(FinancialProfileFields.EMERGENCY_SAVINGS_COVERAGE, emergencySavingsCoverageMonths)
+        putIfPresent(FinancialProfileFields.MAIN_FINANCIAL_GOALS, mainFinancialGoals)
+        putIfPresent(FinancialProfileFields.SHORT_TERM_PURCHASE_GOAL, shortTermPurchaseGoal)
+        putIfPresent(FinancialProfileFields.RISK_TOLERANCE, riskTolerance)
+        putIfPresent(FinancialProfileFields.BUDGETING_PREFERENCE, budgetingPreference)
+        putIfPresent(FinancialProfileFields.UPCOMING_MAJOR_EXPENSES, upcomingMajorExpenses)
+    }
+}
+
+private fun MutableMap<String, String>.putIfPresent(key: String, value: String?) {
+    val normalizedValue = value.normalized()
+    if (normalizedValue != null) {
+        put(key, normalizedValue)
+    }
+}
+
+private fun String?.normalized(): String? {
+    return this?.trim()?.takeIf { it.isNotBlank() }
 }

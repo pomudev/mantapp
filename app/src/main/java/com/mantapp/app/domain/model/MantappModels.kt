@@ -17,9 +17,41 @@ data class SessionState(
 
 data class FinancialProfile(
     val userId: String,
-    val answers: Map<String, String>,
+    val employmentStatus: String? = null,
+    val incomeStability: String? = null,
+    val debtStatus: String? = null,
+    val debtType: String? = null,
+    val emergencySavingsStatus: String? = null,
+    val emergencySavingsCoverageMonths: String? = null,
+    val mainFinancialGoals: String? = null,
+    val shortTermPurchaseGoal: String? = null,
+    val riskTolerance: String? = null,
+    val budgetingPreference: String? = null,
+    val upcomingMajorExpenses: String? = null,
+    val answers: Map<String, String> = emptyMap(),
     val completedAt: Instant? = null,
 )
+
+object FinancialProfileFields {
+    const val EMPLOYMENT_STATUS = "employment_status"
+    const val INCOME_STABILITY = "income_stability"
+    const val DEBT_STATUS = "debt_status"
+    const val DEBT_TYPES = "debt_types"
+    const val EMERGENCY_SAVINGS_STATUS = "emergency_savings_status"
+    const val EMERGENCY_SAVINGS_COVERAGE = "emergency_savings_coverage"
+    const val MAIN_FINANCIAL_GOALS = "main_financial_goals"
+    const val SHORT_TERM_PURCHASE_GOAL = "short_term_purchase_goal"
+    const val RISK_TOLERANCE = "risk_tolerance"
+    const val BUDGETING_PREFERENCE = "budgeting_preference"
+    const val UPCOMING_MAJOR_EXPENSES = "upcoming_major_expenses"
+}
+
+data class FinancialProfileValidationResult(
+    val missingFieldKeys: List<String>,
+) {
+    val isValid: Boolean
+        get() = missingFieldKeys.isEmpty()
+}
 
 data class ExpenseEntry(
     val categoryKey: String,

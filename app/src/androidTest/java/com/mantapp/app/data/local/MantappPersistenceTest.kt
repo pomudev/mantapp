@@ -110,10 +110,29 @@ class MantappPersistenceTest {
         val user = createUser()
         val profile = FinancialProfile(
             userId = user.id,
+            employmentStatus = "Full-time",
+            incomeStability = "Very steady",
+            debtStatus = "Some manageable debt",
+            debtType = "PTPTN",
+            emergencySavingsStatus = "A little",
+            emergencySavingsCoverageMonths = "Less than 1 month",
+            mainFinancialGoals = "Build savings",
+            shortTermPurchaseGoal = "Laptop",
+            riskTolerance = "Balanced",
+            budgetingPreference = "Weekly check-ins",
+            upcomingMajorExpenses = "Course fees",
             answers = mapOf(
                 "employment_status" to "Full-time",
-                "risk_tolerance" to "Moderate",
-                "main_financial_goals" to "Emergency savings",
+                "income_stability" to "Very steady",
+                "debt_status" to "Some manageable debt",
+                "debt_types" to "PTPTN",
+                "emergency_savings_status" to "A little",
+                "emergency_savings_coverage" to "Less than 1 month",
+                "main_financial_goals" to "Build savings",
+                "short_term_purchase_goal" to "Laptop",
+                "risk_tolerance" to "Balanced",
+                "budgeting_preference" to "Weekly check-ins",
+                "upcoming_major_expenses" to "Course fees",
             ),
             completedAt = Instant.ofEpochMilli(1_000L),
         )
@@ -122,6 +141,10 @@ class MantappPersistenceTest {
 
         val saved = profileRepository.observeProfile(user.id).first()
         assertEquals(profile, saved)
+        assertEquals("Full-time", saved?.employmentStatus)
+        assertEquals("PTPTN", saved?.debtType)
+        assertEquals("Less than 1 month", saved?.emergencySavingsCoverageMonths)
+        assertEquals("Weekly check-ins", saved?.budgetingPreference)
     }
 
     @Test

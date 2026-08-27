@@ -20,5 +20,16 @@ import androidx.room.PrimaryKey
 data class FinancialProfileEntity(
     @PrimaryKey val userId: String,
     val answersJson: String,
+    val employmentStatus: String?,
+    val incomeStability: String?,
+    val debtStatus: String?,
+    val debtType: String?,
+    val emergencySavingsStatus: String?,
+    val emergencySavingsCoverageMonths: String?,
+    val mainFinancialGoals: String?,
+    val shortTermPurchaseGoal: String?,
+    val riskTolerance: String?,
+    val budgetingPreference: String?,
+    val upcomingMajorExpenses: String?,
     val completedAtEpochMillis: Long?,
 )

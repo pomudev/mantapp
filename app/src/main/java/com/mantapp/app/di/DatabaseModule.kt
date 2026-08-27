@@ -36,6 +36,7 @@ object DatabaseModule {
             "mantapp.db",
         )
             .addCallback(RewardSeedCallback())
+            .addMigrations(MantappDatabase.MIGRATION_1_2)
             .build()
     }
 

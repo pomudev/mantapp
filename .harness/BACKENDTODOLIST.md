@@ -74,27 +74,27 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 ## 6. Financial Profile Persistence
 
-- [ ] Store monthly income from the income and expense flow.
-- [ ] Store employment status.
-- [ ] Store income stability.
-- [ ] Store debt status.
-- [ ] Store debt type when debt exists.
-- [ ] Store emergency savings status.
-- [ ] Store emergency savings coverage in months.
-- [ ] Store main financial goals.
-- [ ] Store short-term purchase goal.
-- [ ] Store risk tolerance.
-- [ ] Store budgeting approach preference.
-- [ ] Store upcoming major expenses.
-- [ ] Validate required answers.
-- [ ] Persist onboarding answers.
-- [ ] Add onboarding completion flag.
-- [ ] Expose update methods for Settings.
+- [x] Store monthly income from the income and expense flow.
+- [x] Store employment status.
+- [x] Store income stability.
+- [x] Store debt status.
+- [x] Store debt type when debt exists.
+- [x] Store emergency savings status.
+- [x] Store emergency savings coverage in months.
+- [x] Store main financial goals.
+- [x] Store short-term purchase goal.
+- [x] Store risk tolerance.
+- [x] Store budgeting approach preference.
+- [x] Store upcoming major expenses.
+- [x] Validate required answers.
+- [x] Persist onboarding answers.
+- [x] Add onboarding completion flag.
+- [x] Expose update methods for Settings.
 
 ## 7. Income and Expense Module
 
-- [ ] Persist monthly salary.
-- [ ] Persist expense category entries.
+- [x] Persist monthly salary.
+- [x] Persist expense category entries.
 - [ ] Add rent or housing category.
 - [ ] Add utilities category.
 - [ ] Add groceries category.
@@ -110,7 +110,7 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [ ] Calculate disposable income.
 - [ ] Treat RM 1,500 or less as low monthly disposable income for a single-person profile.
 - [ ] Scale the low disposable income threshold by household size when household-member inputs exist.
-- [ ] Persist monthly income and expense data.
+- [x] Persist monthly income and expense data.
 - [ ] Add tests for disposable income calculation.
 
 ## 8. Rule-Based Recommendation Guidance
@@ -250,4 +250,5 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Update backend checklist after adding Room database, entities, DAOs, seeded rewards, Room-backed repositories, and persisted local auth/session state.
 - [x] Update backend checklist after adding Room-backed persistence instrumentation tests for users, sessions, profiles, monthly finance, recommendations, progress logs, rewards, and point transactions.
 - [x] Update backend checklist after verifying unit build, debug APK assembly, and debug androidTest APK assembly; connected androidTest execution is blocked until an emulator or device is attached.
+- [x] Update backend checklist after adding typed financial profile persistence, onboarding answer validation, Room migration `1_2`, onboarding answer saving before completion, Settings-ready profile update methods, and Room-backed monthly income and expense saving.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.

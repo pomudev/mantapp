@@ -1,7 +1,9 @@
 package com.mantapp.app.data.local
 
 import androidx.room.Database
+import androidx.room.migration.Migration
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.mantapp.app.data.local.dao.ExpenseDao
 import com.mantapp.app.data.local.dao.FinancialProfileDao
 import com.mantapp.app.data.local.dao.MonthlyFinanceDao
@@ -33,7 +35,7 @@ import com.mantapp.app.data.local.entity.UserEntity
         RewardEntity::class,
         PointTransactionEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false,
 )
 abstract class MantappDatabase : RoomDatabase() {
@@ -46,4 +48,22 @@ abstract class MantappDatabase : RoomDatabase() {
     abstract fun progressLogDao(): ProgressLogDao
     abstract fun rewardDao(): RewardDao
     abstract fun pointTransactionDao(): PointTransactionDao
+
+    companion object {
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN employmentStatus TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN incomeStability TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN debtStatus TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN debtType TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN emergencySavingsStatus TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN emergencySavingsCoverageMonths TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN mainFinancialGoals TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN shortTermPurchaseGoal TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN riskTolerance TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN budgetingPreference TEXT")
+                db.execSQL("ALTER TABLE financial_profiles ADD COLUMN upcomingMajorExpenses TEXT")
+            }
+        }
+    }
 }
