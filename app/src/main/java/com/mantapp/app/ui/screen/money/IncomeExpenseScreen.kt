@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mantapp.app.domain.model.EssentialExpenseCategories
 import com.mantapp.app.ui.component.MantappErrorState
 import com.mantapp.app.ui.component.MantappMoneyField
 import com.mantapp.app.ui.component.MantappSuccessMessage
@@ -219,24 +220,7 @@ private fun SummaryRow(
     }
 }
 
-private data class ExpenseCategory(
-    val key: String,
-    val label: String,
-)
-
-private val expenseCategories = listOf(
-    ExpenseCategory("housing", "Rent or housing"),
-    ExpenseCategory("utilities", "Utilities"),
-    ExpenseCategory("groceries", "Groceries"),
-    ExpenseCategory("transportation", "Transportation"),
-    ExpenseCategory("insurance", "Insurance"),
-    ExpenseCategory("credit_card_minimum", "Credit card minimum payment"),
-    ExpenseCategory("loan_repayment", "Loan repayment"),
-    ExpenseCategory("phone_internet", "Phone and internet"),
-    ExpenseCategory("education", "Education"),
-    ExpenseCategory("subscriptions", "Subscriptions"),
-    ExpenseCategory("other_commitments", "Other necessary commitments"),
-)
+private val expenseCategories = EssentialExpenseCategories.all
 
 @Preview(showBackground = true)
 @Composable

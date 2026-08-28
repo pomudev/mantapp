@@ -1,5 +1,6 @@
 package com.mantapp.app.domain.model
 
+import com.mantapp.app.domain.finance.MonthlyFinanceRules
 import java.math.BigDecimal
 import java.time.Instant
 
@@ -58,6 +59,48 @@ data class ExpenseEntry(
     val amount: BigDecimal,
 )
 
+data class ExpenseCategory(
+    val key: String,
+    val label: String,
+)
+
+object EssentialExpenseCategories {
+    const val HOUSING = "housing"
+    const val UTILITIES = "utilities"
+    const val GROCERIES = "groceries"
+    const val TRANSPORTATION = "transportation"
+    const val INSURANCE = "insurance"
+    const val CREDIT_CARD_MINIMUM = "credit_card_minimum"
+    const val LOAN_REPAYMENT = "loan_repayment"
+    const val PHONE_INTERNET = "phone_internet"
+    const val EDUCATION = "education"
+    const val SUBSCRIPTIONS = "subscriptions"
+    const val OTHER_COMMITMENTS = "other_commitments"
+
+    val all: List<ExpenseCategory> = listOf(
+        ExpenseCategory(HOUSING, "Rent or housing"),
+        ExpenseCategory(UTILITIES, "Utilities"),
+        ExpenseCategory(GROCERIES, "Groceries"),
+        ExpenseCategory(TRANSPORTATION, "Transportation"),
+        ExpenseCategory(INSURANCE, "Insurance"),
+        ExpenseCategory(CREDIT_CARD_MINIMUM, "Credit card minimum payment"),
+        ExpenseCategory(LOAN_REPAYMENT, "Loan repayment"),
+        ExpenseCategory(PHONE_INTERNET, "Phone and internet"),
+        ExpenseCategory(EDUCATION, "Education"),
+        ExpenseCategory(SUBSCRIPTIONS, "Subscriptions"),
+        ExpenseCategory(OTHER_COMMITMENTS, "Other necessary commitments"),
+    )
+
+    val allowedKeys: Set<String> = all.mapTo(mutableSetOf()) { it.key }
+}
+
+data class MonthlyFinanceValidationResult(
+    val fieldErrors: Map<String, String>,
+) {
+    val isValid: Boolean
+        get() = fieldErrors.isEmpty()
+}
+
 data class MonthlyFinance(
     val userId: String,
     val monthlyIncome: BigDecimal,
@@ -65,10 +108,10 @@ data class MonthlyFinance(
     val updatedAt: Instant,
 ) {
     val totalEssentialExpenses: BigDecimal
-        get() = expenses.fold(BigDecimal.ZERO) { total, entry -> total + entry.amount }
+        get() = MonthlyFinanceRules.totalEssentialExpenses(expenses)
 
     val disposableIncome: BigDecimal
-        get() = monthlyIncome - totalEssentialExpenses
+        get() = MonthlyFinanceRules.disposableIncome(monthlyIncome, expenses)
 }
 
 data class SavedRecommendation(

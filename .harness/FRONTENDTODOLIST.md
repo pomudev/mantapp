@@ -240,4 +240,5 @@ This checklist covers user-facing Android, Jetpack Compose, navigation, screen s
 - [x] Review frontend checklist after Room-backed authentication wiring; removed the simulated returning-user shortcut from login.
 - [x] Review frontend checklist after persistence test setup; no frontend feature status changed.
 - [x] Review frontend checklist after financial profile persistence wiring; onboarding and cash-flow ViewModels now save through Room-backed repositories, but no frontend feature checklist item changed.
+- [x] Review frontend checklist after Backend Income and Expense Module work; money UI now consumes canonical backend expense categories and backend threshold rules, but no frontend checklist status changed.
 - [ ] Update this checklist whenever frontend task status, scope, publishing state, or implementation progress changes.

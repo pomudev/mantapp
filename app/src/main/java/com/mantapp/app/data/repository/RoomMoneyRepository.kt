@@ -7,6 +7,7 @@ import com.mantapp.app.data.local.dao.MonthlyFinanceDao
 import com.mantapp.app.data.mapper.toEntity
 import com.mantapp.app.data.mapper.toExpenseEntities
 import com.mantapp.app.data.mapper.toMonthlyFinance
+import com.mantapp.app.domain.finance.MonthlyFinanceRules
 import com.mantapp.app.domain.model.MonthlyFinance
 import com.mantapp.app.domain.repository.MoneyRepository
 import javax.inject.Inject
@@ -31,6 +32,11 @@ class RoomMoneyRepository @Inject constructor(
 
     override suspend fun saveMonthlyFinance(finance: MonthlyFinance) {
         withContext(Dispatchers.IO) {
+            val validation = MonthlyFinanceRules.validate(finance)
+            require(validation.isValid) {
+                "Invalid monthly finance input: ${validation.fieldErrors.values.joinToString()}"
+            }
+
             database.withTransaction {
                 monthlyFinanceDao.upsert(finance.toEntity())
                 expenseDao.deleteForUser(finance.userId)

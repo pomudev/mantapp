@@ -2,6 +2,7 @@ package com.mantapp.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mantapp.app.domain.finance.MonthlyFinanceRules
 import com.mantapp.app.domain.model.ExpenseEntry
 import com.mantapp.app.domain.model.MonthlyFinance
 import com.mantapp.app.domain.repository.AuthRepository
@@ -76,9 +77,11 @@ class MoneyEntryViewModel @Inject constructor(
             }
 
             val expenseErrors = current.expenseInputs.mapNotNull { (key, value) ->
+                val amount = value.toMoneyOrNull()
                 when {
                     value.isBlank() -> null
-                    value.toMoneyOrNull() == null -> key to "Use a valid amount."
+                    amount == null -> key to "Use a valid amount."
+                    amount < BigDecimal.ZERO -> key to "Amount cannot be negative."
                     else -> null
                 }
             }.toMap()
@@ -157,15 +160,16 @@ class MoneyEntryViewModel @Inject constructor(
 
     private fun recalculate(state: MoneyEntryUiState): MoneyEntryUiState {
         val monthlyIncome = state.monthlyIncome.toMoneyOrNull() ?: BigDecimal.ZERO
-        val totalExpenses = state.expenseInputs.values
-            .mapNotNull { it.toMoneyOrNull() }
-            .fold(BigDecimal.ZERO) { total, amount -> total + amount }
-        val disposableIncome = monthlyIncome - totalExpenses
+        val expenses = state.expenseInputs.mapNotNull { (key, value) ->
+            value.toMoneyOrNull()?.let { amount -> ExpenseEntry(key, amount) }
+        }
+        val totalExpenses = MonthlyFinanceRules.totalEssentialExpenses(expenses)
+        val disposableIncome = MonthlyFinanceRules.disposableIncome(monthlyIncome, expenses)
 
         return state.copy(
             totalEssentialExpenses = totalExpenses.toDisplayAmount(),
             disposableIncome = disposableIncome.toDisplayAmount(),
-            isLowOrNegativeDisposableIncome = disposableIncome <= LOW_DISPOSABLE_INCOME_THRESHOLD,
+            isLowOrNegativeDisposableIncome = MonthlyFinanceRules.isLowDisposableIncome(disposableIncome),
         )
     }
 
@@ -178,10 +182,6 @@ class MoneyEntryViewModel @Inject constructor(
 
     private fun BigDecimal.toDisplayAmount(): String {
         return setScale(2, RoundingMode.HALF_UP).toPlainString()
-    }
-
-    private companion object {
-        val LOW_DISPOSABLE_INCOME_THRESHOLD: BigDecimal = BigDecimal("1500.00")
     }
 
 }

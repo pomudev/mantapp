@@ -95,23 +95,23 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 - [x] Persist monthly salary.
 - [x] Persist expense category entries.
-- [ ] Add rent or housing category.
-- [ ] Add utilities category.
-- [ ] Add groceries category.
-- [ ] Add transportation category.
-- [ ] Add insurance category.
-- [ ] Add credit card minimum payment category.
-- [ ] Add loan repayment category.
-- [ ] Add phone and internet category.
-- [ ] Add education expense category.
-- [ ] Add subscriptions category.
-- [ ] Add other necessary commitments category.
-- [ ] Calculate total essential expenses.
-- [ ] Calculate disposable income.
-- [ ] Treat RM 1,500 or less as low monthly disposable income for a single-person profile.
-- [ ] Scale the low disposable income threshold by household size when household-member inputs exist.
+- [x] Add rent or housing category.
+- [x] Add utilities category.
+- [x] Add groceries category.
+- [x] Add transportation category.
+- [x] Add insurance category.
+- [x] Add credit card minimum payment category.
+- [x] Add loan repayment category.
+- [x] Add phone and internet category.
+- [x] Add education expense category.
+- [x] Add subscriptions category.
+- [x] Add other necessary commitments category.
+- [x] Calculate total essential expenses.
+- [x] Calculate disposable income.
+- [x] Treat RM 1,500 or less as low monthly disposable income for a single-person profile.
+- [x] Scale the low disposable income threshold by household size when household-member inputs exist.
 - [x] Persist monthly income and expense data.
-- [ ] Add tests for disposable income calculation.
+- [x] Add tests for disposable income calculation.
 
 ## 8. Rule-Based Recommendation Guidance
 
@@ -193,14 +193,14 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 
 ## 14. Backend Quality and Testing
 
-- [ ] Add unit tests for disposable income calculation.
+- [x] Add unit tests for disposable income calculation.
 - [ ] Add unit tests for allocation guidance rules.
-- [ ] Add unit tests for low, at-threshold, and negative disposable income.
+- [x] Add unit tests for low, at-threshold, and negative disposable income.
 - [ ] Add unit tests for point awarding.
 - [ ] Add unit tests for redemption rules.
 - [x] Add Room DAO tests.
 - [x] Run build verification.
-- [ ] Run backend-relevant test suite.
+- [x] Run backend-relevant test suite.
 - [ ] Review business logic for financial safety.
 
 ## 15. Backend Documentation and Release Readiness
@@ -251,4 +251,5 @@ This checklist covers local data, Room persistence, domain logic, recommendation
 - [x] Update backend checklist after adding Room-backed persistence instrumentation tests for users, sessions, profiles, monthly finance, recommendations, progress logs, rewards, and point transactions.
 - [x] Update backend checklist after verifying unit build, debug APK assembly, and debug androidTest APK assembly; connected androidTest execution is blocked until an emulator or device is attached.
 - [x] Update backend checklist after adding typed financial profile persistence, onboarding answer validation, Room migration `1_2`, onboarding answer saving before completion, Settings-ready profile update methods, and Room-backed monthly income and expense saving.
+- [x] Update backend checklist after completing Income and Expense Module backend categories, validation, disposable income rules, threshold scaling helper, and unit tests.
 - [ ] Update this checklist whenever backend task status, scope, publishing state, or implementation progress changes.
